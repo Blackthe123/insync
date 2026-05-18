@@ -1,93 +1,355 @@
 import os
+import random
+import string
 from contextlib import asynccontextmanager
+from datetime import datetime, timedelta, timezone
 from uuid import UUID, uuid4
 
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
-from sqlalchemy import Column, Text
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+from pydantic import BaseModel, EmailStr, Field
+from sqlalchemy import Column, ForeignKey, String, Text, Table
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
-from sqlalchemy import select, delete as sa_delete
+from sqlalchemy.orm import DeclarativeBase, relationship, sessionmaker
+from sqlalchemy import select
+
+# ── Config ────────────────────────────────────────────────────────────────────
 
 DATABASE_URL = os.environ["DATABASE_URL"]
+SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-production-please")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 
 engine = create_async_engine(DATABASE_URL, echo=False)
 async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+
+# ── Models ────────────────────────────────────────────────────────────────────
 
 
 class Base(DeclarativeBase):
     pass
 
 
-class Todo(Base):
-    __tablename__ = "todos"
+# Association table for group membership
+group_members = Table(
+    "group_members",
+    Base.metadata,
+    Column("user_id", PG_UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True),
+    Column("group_id", PG_UUID(as_uuid=True), ForeignKey("groups.id"), primary_key=True),
+)
+
+
+class User(Base):
+    __tablename__ = "users"
 
     id = Column(PG_UUID(as_uuid=True), primary_key=True, default=uuid4)
-    content = Column(Text, nullable=False)
+    email = Column(String(255), unique=True, nullable=False, index=True)
+    display_name = Column(String(100), nullable=False)
+    hashed_password = Column(String(255), nullable=False)
+
+    groups = relationship("Group", secondary=group_members, back_populates="members")
+
+
+class Group(Base):
+    __tablename__ = "groups"
+
+    id = Column(PG_UUID(as_uuid=True), primary_key=True, default=uuid4)
+    name = Column(String(100), nullable=False)
+    invite_code = Column(String(8), unique=True, nullable=False, index=True)
+    owner_id = Column(PG_UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+
+    members = relationship("User", secondary=group_members, back_populates="groups")
+
+
+# ── Lifespan ──────────────────────────────────────────────────────────────────
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Create tables on startup
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     yield
-    # Dispose of engine on shutdown
     await engine.dispose()
 
 
-app = FastAPI(lifespan=lifespan)
+# ── App ───────────────────────────────────────────────────────────────────────
+
+app = FastAPI(lifespan=lifespan, title="InSync API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost"],
+    allow_origins=["http://localhost", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
-class TodoItem(BaseModel):
-    id: UUID = Field(default_factory=uuid4)
-    content: str
+
+def hash_password(password: str) -> str:
+    return pwd_context.hash(password)
+
+
+def verify_password(plain: str, hashed: str) -> bool:
+    return pwd_context.verify(plain, hashed)
+
+
+def create_access_token(data: dict) -> str:
+    payload = data.copy()
+    payload["exp"] = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+
+
+def generate_invite_code(length: int = 8) -> str:
+    return "".join(random.choices(string.ascii_uppercase + string.digits, k=length))
+
+
+async def get_current_user(
+    token: str = Depends(oauth2_scheme),
+) -> User:
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid or expired token",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: str = payload.get("sub")
+        if user_id is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+
+    async with async_session() as session:
+        result = await session.execute(select(User).where(User.id == UUID(user_id)))
+        user = result.scalar_one_or_none()
+        if user is None:
+            raise credentials_exception
+        return user
+
+
+# ── Schemas ───────────────────────────────────────────────────────────────────
+
+
+class UserRegister(BaseModel):
+    email: EmailStr
+    display_name: str = Field(min_length=1, max_length=100)
+    password: str = Field(min_length=6)
+
+
+class UserOut(BaseModel):
+    id: UUID
+    email: str
+    display_name: str
 
     model_config = {"from_attributes": True}
 
 
-class TodoItemCreate(BaseModel):
-    content: str
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    user: UserOut
 
 
-@app.post("/todos", response_model=TodoItem)
-async def create_todo(item: TodoItemCreate):
-    new_todo = Todo(id=uuid4(), content=item.content)
+class GroupCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=100)
+
+
+class GroupJoin(BaseModel):
+    invite_code: str
+
+
+class GroupOut(BaseModel):
+    id: UUID
+    name: str
+    invite_code: str
+    owner_id: UUID
+    member_count: int
+
+    model_config = {"from_attributes": True}
+
+
+class GroupDetail(GroupOut):
+    members: list[UserOut]
+
+
+# ── Auth Routes ───────────────────────────────────────────────────────────────
+
+
+@app.post("/auth/register", response_model=Token, status_code=201)
+async def register(body: UserRegister):
     async with async_session() as session:
-        session.add(new_todo)
+        existing = await session.execute(select(User).where(User.email == body.email))
+        if existing.scalar_one_or_none():
+            raise HTTPException(status_code=400, detail="Email already registered")
+
+        user = User(
+            id=uuid4(),
+            email=body.email,
+            display_name=body.display_name,
+            hashed_password=hash_password(body.password),
+        )
+        session.add(user)
         await session.commit()
-        await session.refresh(new_todo)
-    return new_todo
+        await session.refresh(user)
+
+    token = create_access_token({"sub": str(user.id)})
+    return Token(access_token=token, token_type="bearer", user=UserOut.model_validate(user))
 
 
-@app.get("/todos", response_model=list[TodoItem])
-async def read_todos():
+@app.post("/auth/login", response_model=Token)
+async def login(form: OAuth2PasswordRequestForm = Depends()):
     async with async_session() as session:
-        result = await session.execute(select(Todo))
-        return result.scalars().all()
+        result = await session.execute(select(User).where(User.email == form.username))
+        user = result.scalar_one_or_none()
+
+    if not user or not verify_password(form.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail="Incorrect email or password")
+
+    token = create_access_token({"sub": str(user.id)})
+    return Token(access_token=token, token_type="bearer", user=UserOut.model_validate(user))
 
 
-@app.delete("/todos/{todo_id}")
-async def delete_todo(todo_id: UUID):
+@app.get("/auth/me", response_model=UserOut)
+async def me(current_user: User = Depends(get_current_user)):
+    return current_user
+
+
+# ── Group Routes ──────────────────────────────────────────────────────────────
+
+
+@app.post("/groups", response_model=GroupOut, status_code=201)
+async def create_group(body: GroupCreate, current_user: User = Depends(get_current_user)):
     async with async_session() as session:
-        result = await session.execute(
-            sa_delete(Todo).where(Todo.id == todo_id)
+        # Ensure unique invite code
+        while True:
+            code = generate_invite_code()
+            existing = await session.execute(select(Group).where(Group.invite_code == code))
+            if not existing.scalar_one_or_none():
+                break
+
+        group = Group(
+            id=uuid4(),
+            name=body.name,
+            invite_code=code,
+            owner_id=current_user.id,
+        )
+        session.add(group)
+        await session.flush()
+
+        # Add creator as first member
+        await session.execute(
+            group_members.insert().values(user_id=current_user.id, group_id=group.id)
         )
         await session.commit()
-        if result.rowcount == 0:
-            raise HTTPException(status_code=404, detail="Todo not found")
-    return {"message": "Todo deleted successfully"}
+        await session.refresh(group)
+
+        member_count = len(group.members)
+
+    return GroupOut(
+        id=group.id,
+        name=group.name,
+        invite_code=group.invite_code,
+        owner_id=group.owner_id,
+        member_count=member_count,
+    )
+
+
+@app.post("/groups/join", response_model=GroupOut)
+async def join_group(body: GroupJoin, current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        result = await session.execute(
+            select(Group).where(Group.invite_code == body.invite_code.upper())
+        )
+        group = result.scalar_one_or_none()
+        if not group:
+            raise HTTPException(status_code=404, detail="Invalid invite code")
+
+        # Check already a member
+        already = await session.execute(
+            select(group_members).where(
+                group_members.c.user_id == current_user.id,
+                group_members.c.group_id == group.id,
+            )
+        )
+        if already.first():
+            raise HTTPException(status_code=400, detail="Already a member of this group")
+
+        await session.execute(
+            group_members.insert().values(user_id=current_user.id, group_id=group.id)
+        )
+        await session.commit()
+        await session.refresh(group)
+
+        member_count = len(group.members)
+
+    return GroupOut(
+        id=group.id,
+        name=group.name,
+        invite_code=group.invite_code,
+        owner_id=group.owner_id,
+        member_count=member_count,
+    )
+
+
+@app.get("/groups/me", response_model=list[GroupOut])
+async def my_groups(current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        result = await session.execute(
+            select(Group)
+            .join(group_members, Group.id == group_members.c.group_id)
+            .where(group_members.c.user_id == current_user.id)
+        )
+        groups = result.scalars().all()
+        return [
+            GroupOut(
+                id=g.id,
+                name=g.name,
+                invite_code=g.invite_code,
+                owner_id=g.owner_id,
+                member_count=len(g.members),
+            )
+            for g in groups
+        ]
+
+
+@app.get("/groups/{group_id}", response_model=GroupDetail)
+async def get_group(group_id: UUID, current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        result = await session.execute(select(Group).where(Group.id == group_id))
+        group = result.scalar_one_or_none()
+        if not group:
+            raise HTTPException(status_code=404, detail="Group not found")
+
+        # Check membership
+        membership = await session.execute(
+            select(group_members).where(
+                group_members.c.user_id == current_user.id,
+                group_members.c.group_id == group_id,
+            )
+        )
+        if not membership.first():
+            raise HTTPException(status_code=403, detail="Not a member of this group")
+
+        members = [UserOut.model_validate(m) for m in group.members]
+
+    return GroupDetail(
+        id=group.id,
+        name=group.name,
+        invite_code=group.invite_code,
+        owner_id=group.owner_id,
+        member_count=len(members),
+        members=members,
+    )
 
 
 if __name__ == "__main__":

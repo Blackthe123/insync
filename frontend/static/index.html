@@ -1,62 +1,1040 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimal Todo List</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InSync — Find your window</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F5F0E8;
+      --warm:    #EDE5D0;
+      --clay:    #C4714A;
+      --clay-dk: #A35A37;
+      --charcoal:#2C2825;
+      --mid:     #7A6F65;
+      --border:  #D9CFC0;
+      --green:   #4A7C59;
+      --radius:  12px;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+    }
+
+    /* ── Landing ──────────────────────────────────── */
+    #landing {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #landing::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(196,113,74,.18) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(74,124,89,.12) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .landing-inner {
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      animation: fadeUp .7s ease both;
+    }
+
+    .logo-mark {
+      width: 56px;
+      height: 56px;
+      background: var(--clay);
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 24px rgba(196,113,74,.3);
+    }
+
+    .logo-mark svg { width: 28px; height: 28px; }
+
+    h1.wordmark {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      letter-spacing: -.03em;
+      line-height: 1;
+      margin-bottom: .5rem;
+    }
+
+    .tagline {
+      font-size: .95rem;
+      color: var(--mid);
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .auth-tabs {
+      display: flex;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 4px;
+      margin-bottom: 1.5rem;
+      gap: 4px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: .55rem;
+      border: none;
+      background: transparent;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--mid);
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .auth-tab.active {
+      background: white;
+      color: var(--charcoal);
+      box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 24px rgba(44,40,37,.06);
+    }
+
+    .field { margin-bottom: 1rem; text-align: left; }
+
+    .field label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: .4rem;
+    }
+
+    .field input {
+      width: 100%;
+      padding: .7rem .9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      color: var(--charcoal);
+      background: var(--cream);
+      transition: border-color .15s, box-shadow .15s;
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: var(--clay);
+      box-shadow: 0 0 0 3px rgba(196,113,74,.12);
+      background: white;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: .8rem;
+      background: var(--clay);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: .5rem;
+      transition: background .15s, transform .1s, box-shadow .15s;
+      box-shadow: 0 4px 12px rgba(196,113,74,.25);
+    }
+
+    .btn-primary:hover { background: var(--clay-dk); box-shadow: 0 6px 16px rgba(196,113,74,.3); }
+    .btn-primary:active { transform: translateY(1px); }
+    .btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+    .error-msg {
+      background: #FEF0EC;
+      border: 1px solid #F5C6B5;
+      color: #9B3D1F;
+      padding: .6rem .9rem;
+      border-radius: 8px;
+      font-size: .85rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── App Shell ────────────────────────────────── */
+    #app { display: none; min-height: 100vh; flex-direction: column; }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .nav-logo .dot { color: var(--clay); }
+
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: .3rem .75rem .3rem .3rem;
+    }
+
+    .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--clay);
+      color: white;
+      font-size: .75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-pill span { font-size: .85rem; font-weight: 500; }
+
+    .btn-ghost {
+      padding: .4rem .9rem;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--mid);
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .btn-ghost:hover { border-color: var(--charcoal); color: var(--charcoal); }
+
+    /* ── Dashboard ────────────────────────────────── */
+    main {
+      flex: 1;
+      padding: 2.5rem 2rem;
+      max-width: 880px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+      animation: fadeUp .4s ease both;
+    }
+
+    .page-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: .25rem;
+    }
+
+    .page-header p { color: var(--mid); font-size: .95rem; }
+
+    .groups-actions {
+      display: flex;
+      gap: .75rem;
+      margin-bottom: 2rem;
+      animation: fadeUp .4s .05s ease both;
+    }
+
+    .btn-create {
+      padding: .65rem 1.25rem;
+      background: var(--clay);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      transition: background .15s, box-shadow .15s;
+      box-shadow: 0 2px 8px rgba(196,113,74,.25);
+    }
+
+    .btn-create:hover { background: var(--clay-dk); }
+
+    .btn-join {
+      padding: .65rem 1.25rem;
+      background: white;
+      color: var(--charcoal);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      transition: all .15s;
+    }
+
+    .btn-join:hover { border-color: var(--charcoal); }
+
+    .groups-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .group-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem;
+      cursor: pointer;
+      transition: all .2s;
+      animation: fadeUp .4s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .group-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--clay);
+      transform: scaleX(0);
+      transition: transform .2s;
+      transform-origin: left;
+    }
+
+    .group-card:hover { border-color: var(--clay); box-shadow: 0 4px 20px rgba(44,40,37,.08); transform: translateY(-2px); }
+    .group-card:hover::before { transform: scaleX(1); }
+
+    .group-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+
+    .group-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: .82rem;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    .invite-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .25rem .55rem;
+      font-size: .78rem;
+      font-family: 'DM Sans', monospace;
+      font-weight: 500;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: background .15s;
+      letter-spacing: .05em;
+    }
+
+    .invite-chip:hover { background: var(--border); }
+
+    .invite-chip .copy-label { font-size: .7rem; color: var(--mid); }
+
+    .empty-state {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 4rem 2rem;
+      animation: fadeUp .4s ease both;
+    }
+
+    .empty-icon {
+      width: 64px; height: 64px;
+      background: var(--warm);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .empty-state h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: .5rem;
+    }
+
+    .empty-state p { color: var(--mid); font-size: .9rem; }
+
+    /* ── Modal ────────────────────────────────────── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(44,40,37,.4);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadein .15s ease;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 24px 64px rgba(44,40,37,.15);
+      animation: slideUp .2s ease;
+    }
+
+    .modal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: .4rem;
+    }
+
+    .modal p { color: var(--mid); font-size: .9rem; margin-bottom: 1.5rem; }
+
+    .modal-actions { display: flex; gap: .75rem; margin-top: 1.25rem; }
+
+    .btn-cancel {
+      flex: 1;
+      padding: .7rem;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .btn-cancel:hover { background: var(--border); }
+
+    /* ── Group Detail Panel ───────────────────────── */
+    #group-detail { display: none; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .88rem;
+      color: var(--mid);
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      padding: .3rem 0;
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      transition: color .15s;
+    }
+
+    .back-btn:hover { color: var(--charcoal); }
+
+    .detail-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    .detail-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .members-section h4 {
+      font-size: .8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    .member-list { display: flex; flex-direction: column; gap: .5rem; }
+
+    .member-row {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      padding: .75rem 1rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .member-row .avatar { width: 36px; height: 36px; font-size: .85rem; }
+
+    .member-info { flex: 1; }
+    .member-name { font-weight: 500; font-size: .95rem; }
+    .member-email { font-size: .8rem; color: var(--mid); }
+
+    .owner-badge {
+      font-size: .72rem;
+      background: #FEF0EC;
+      color: var(--clay);
+      border: 1px solid #F5C6B5;
+      border-radius: 999px;
+      padding: .15rem .55rem;
+      font-weight: 500;
+    }
+
+    /* ── Toast ────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--charcoal);
+      color: white;
+      padding: .6rem 1.2rem;
+      border-radius: 999px;
+      font-size: .875rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+      pointer-events: none;
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Animations ───────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 </head>
 <body>
-    <h1>Todo List</h1>
-    <input type="text" id="newItem" placeholder="Enter a new item">
-    <button onclick="addItem()">Add</button>
-    <ul id="todoList"></ul>
 
-    <script>
-        const API_URL = 'http://localhost:8000';
+<!-- ── Landing / Auth ─────────────────────────────────────────────────────── -->
+<div id="landing">
+  <div class="landing-inner">
+    <div class="logo-mark">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="9" cy="14" r="5" stroke="white" stroke-width="2"/>
+        <circle cx="19" cy="14" r="5" stroke="white" stroke-width="2"/>
+        <path d="M12 14a3 3 0 0 0 4 0" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
 
-        async function fetchTodos() {
-            const response = await fetch(`${API_URL}/todos`);
-            const todos = await response.json();
-            const list = document.getElementById('todoList');
-            list.innerHTML = '';
-            todos.forEach(todo => {
-                const li = document.createElement('li');
-                li.textContent = todo.content;
-                const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'Delete';
-                deleteBtn.onclick = () => deleteItem(todo._id);
-                li.appendChild(deleteBtn);
-                list.appendChild(li);
-            });
-        }
+    <h1 class="wordmark">InSync</h1>
+    <p class="tagline">
+      You picked your degree. You picked your courses.<br/>
+      Now pick time for the people that matter.
+    </p>
 
-        async function addItem() {
-            const input = document.getElementById('newItem');
-            if (input.value.trim() !== '') {
-                const response = await fetch(`${API_URL}/todos`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ content: input.value }),
-                });
-                if (response.ok) {
-                    input.value = '';
-                    fetchTodos();
-                }
-            }
-        }
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Sign in</button>
+      <button class="auth-tab" onclick="switchTab('register')">Create account</button>
+    </div>
 
-        async function deleteItem(id) {
-            const response = await fetch(`${API_URL}/todos/${id}`, {
-                method: 'DELETE',
-            });
-            if (response.ok) {
-                fetchTodos();
-            }
-        }
+    <div class="card">
+      <div id="auth-error" class="error-msg" style="display:none"></div>
 
-        fetchTodos();
-    </script>
+      <!-- Login form -->
+      <div id="login-form">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="you@student.unsw.edu.au" />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
+        </div>
+        <button class="btn-primary" id="login-btn" onclick="doLogin()">Sign in</button>
+      </div>
+
+      <!-- Register form -->
+      <div id="register-form" style="display:none">
+        <div class="field">
+          <label>Display name</label>
+          <input type="text" id="reg-name" placeholder="How your friends will see you" />
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="reg-email" placeholder="you@student.unsw.edu.au" />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="reg-password" placeholder="At least 6 characters" onkeydown="if(event.key==='Enter')doRegister()" />
+        </div>
+        <button class="btn-primary" id="register-btn" onclick="doRegister()">Create account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── App Shell ───────────────────────────────────────────────────────────── -->
+<div id="app">
+  <nav>
+    <div class="nav-logo">InSync<span class="dot">.</span></div>
+    <div class="nav-right">
+      <div class="user-pill">
+        <div class="avatar" id="nav-avatar"></div>
+        <span id="nav-name"></span>
+      </div>
+      <button class="btn-ghost" onclick="logout()">Sign out</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Dashboard -->
+    <div id="dashboard">
+      <div class="page-header">
+        <h2>Your groups</h2>
+        <p>Create a group or join one with an invite code to get started.</p>
+      </div>
+
+      <div class="groups-actions">
+        <button class="btn-create" onclick="openCreateModal()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1v12M1 7h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Create group
+        </button>
+        <button class="btn-join" onclick="openJoinModal()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M5 7h6M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Join with code
+        </button>
+      </div>
+
+      <div class="groups-grid" id="groups-grid">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- Group Detail -->
+    <div id="group-detail">
+      <button class="back-btn" onclick="showDashboard()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        All groups
+      </button>
+
+      <div class="detail-header">
+        <div>
+          <div class="detail-title" id="detail-name"></div>
+          <div style="margin-top:.4rem; display:flex; align-items:center; gap:.75rem;">
+            <span style="font-size:.85rem; color:var(--mid)" id="detail-member-count"></span>
+            <span class="invite-chip" id="detail-invite" onclick="copyInviteCode()">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                <rect x="1" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M3 3V2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              <span id="detail-code"></span>
+              <span class="copy-label">copy</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="members-section">
+        <h4>Members</h4>
+        <div class="member-list" id="member-list"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ── Modals ─────────────────────────────────────────────────────────────── -->
+<div id="modal-backdrop" class="modal-backdrop" style="display:none" onclick="closeModal(event)">
+  <!-- Create -->
+  <div id="modal-create" class="modal" style="display:none">
+    <h3>New group</h3>
+    <p>Give your friend group a name. You'll get an invite code to share.</p>
+    <div class="field">
+      <label>Group name</label>
+      <input type="text" id="create-name" placeholder="e.g. COMP3900 crew" maxlength="100"
+             onkeydown="if(event.key==='Enter')doCreate()" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeAllModals()">Cancel</button>
+      <button class="btn-primary" style="flex:1" id="create-btn" onclick="doCreate()">Create</button>
+    </div>
+  </div>
+
+  <!-- Join -->
+  <div id="modal-join" class="modal" style="display:none">
+    <h3>Join a group</h3>
+    <p>Ask a friend for their 8-character invite code.</p>
+    <div class="field">
+      <label>Invite code</label>
+      <input type="text" id="join-code" placeholder="e.g. XK9P2MNQ" maxlength="8"
+             style="text-transform:uppercase; letter-spacing:.1em; font-size:1.1rem"
+             onkeydown="if(event.key==='Enter')doJoin()" />
+    </div>
+    <div id="join-error" class="error-msg" style="display:none"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeAllModals()">Cancel</button>
+      <button class="btn-primary" style="flex:1" id="join-btn" onclick="doJoin()">Join</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<script>
+  const API = 'http://localhost:8000';
+  let token = localStorage.getItem('insync_token');
+  let currentUser = JSON.parse(localStorage.getItem('insync_user') || 'null');
+  let currentGroupId = null;
+
+  // ── Boot ──────────────────────────────────────────
+  if (token && currentUser) showApp();
+
+  // ── Auth tab switch ───────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach((t, i) =>
+      t.classList.toggle('active', (tab === 'login') === (i === 0)));
+    document.getElementById('login-form').style.display = tab === 'login' ? '' : 'none';
+    document.getElementById('register-form').style.display = tab === 'register' ? '' : 'none';
+    document.getElementById('auth-error').style.display = 'none';
+  }
+
+  // ── API helper ────────────────────────────────────
+  async function api(path, opts = {}) {
+    const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+    const res = await fetch(API + path, { ...opts, headers });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Something went wrong');
+    return data;
+  }
+
+  // ── Auth ──────────────────────────────────────────
+  async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const pass  = document.getElementById('login-password').value;
+    const btn   = document.getElementById('login-btn');
+    if (!email || !pass) return showError('auth-error', 'Please fill in all fields');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>';
+    try {
+      const form = new URLSearchParams({ username: email, password: pass });
+      const res = await fetch(API + '/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: form,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || 'Login failed');
+      saveAuth(data);
+    } catch (e) {
+      showError('auth-error', e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Sign in';
+    }
+  }
+
+  async function doRegister() {
+    const name  = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const pass  = document.getElementById('reg-password').value;
+    const btn   = document.getElementById('register-btn');
+    if (!name || !email || !pass) return showError('auth-error', 'Please fill in all fields');
+    if (pass.length < 6) return showError('auth-error', 'Password must be at least 6 characters');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>';
+    try {
+      const data = await api('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({ display_name: name, email, password: pass }),
+      });
+      saveAuth(data);
+    } catch (e) {
+      showError('auth-error', e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Create account';
+    }
+  }
+
+  function saveAuth(data) {
+    token = data.access_token;
+    currentUser = data.user;
+    localStorage.setItem('insync_token', token);
+    localStorage.setItem('insync_user', JSON.stringify(currentUser));
+    showApp();
+  }
+
+  function logout() {
+    token = null;
+    currentUser = null;
+    localStorage.removeItem('insync_token');
+    localStorage.removeItem('insync_user');
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('landing').style.display = 'flex';
+  }
+
+  // ── App ───────────────────────────────────────────
+  function showApp() {
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    const initials = currentUser.display_name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('nav-avatar').textContent = initials;
+    document.getElementById('nav-name').textContent = currentUser.display_name;
+    loadGroups();
+  }
+
+  async function loadGroups() {
+    const grid = document.getElementById('groups-grid');
+    grid.innerHTML = '<div style="color:var(--mid);font-size:.9rem;padding:1rem 0">Loading…</div>';
+    try {
+      const groups = await api('/groups/me');
+      renderGroups(groups);
+    } catch (e) {
+      grid.innerHTML = `<div class="error-msg">${e.message}</div>`;
+    }
+  }
+
+  function renderGroups(groups) {
+    const grid = document.getElementById('groups-grid');
+    if (!groups.length) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="9" cy="14" r="5" stroke="var(--clay)" stroke-width="1.5"/>
+              <circle cx="19" cy="14" r="5" stroke="var(--clay)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>No groups yet</h3>
+          <p>Create one or join with a code from a friend.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = groups.map((g, i) => `
+      <div class="group-card" style="animation-delay:${i * 0.05}s" onclick="openGroup('${g.id}')">
+        <div class="group-card-name">${esc(g.name)}</div>
+        <div class="group-card-meta">
+          <span>${g.member_count} member${g.member_count !== 1 ? 's' : ''}</span>
+        </div>
+        <span class="invite-chip" onclick="event.stopPropagation();copyCode('${g.invite_code}')">
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+            <rect x="1" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M3 3V2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          ${g.invite_code}
+          <span class="copy-label">copy</span>
+        </span>
+      </div>`).join('');
+  }
+
+  // ── Group Detail ──────────────────────────────────
+  async function openGroup(id) {
+    currentGroupId = id;
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('group-detail').style.display = 'block';
+    document.getElementById('member-list').innerHTML = '<div style="color:var(--mid);font-size:.9rem">Loading…</div>';
+    try {
+      const g = await api(`/groups/${id}`);
+      document.getElementById('detail-name').textContent = g.name;
+      document.getElementById('detail-member-count').textContent = `${g.member_count} member${g.member_count !== 1 ? 's' : ''}`;
+      document.getElementById('detail-code').textContent = g.invite_code;
+      document.getElementById('member-list').innerHTML = g.members.map(m => `
+        <div class="member-row">
+          <div class="avatar">${m.display_name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}</div>
+          <div class="member-info">
+            <div class="member-name">${esc(m.display_name)}</div>
+            <div class="member-email">${esc(m.email)}</div>
+          </div>
+          ${m.id === g.owner_id ? '<span class="owner-badge">owner</span>' : ''}
+        </div>`).join('');
+    } catch (e) {
+      document.getElementById('member-list').innerHTML = `<div class="error-msg">${e.message}</div>`;
+    }
+  }
+
+  function showDashboard() {
+    document.getElementById('group-detail').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadGroups();
+  }
+
+  // ── Create modal ──────────────────────────────────
+  function openCreateModal() {
+    document.getElementById('modal-backdrop').style.display = 'flex';
+    document.getElementById('modal-create').style.display = 'block';
+    document.getElementById('modal-join').style.display = 'none';
+    setTimeout(() => document.getElementById('create-name').focus(), 50);
+  }
+
+  async function doCreate() {
+    const name = document.getElementById('create-name').value.trim();
+    if (!name) return;
+    const btn = document.getElementById('create-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>';
+    try {
+      await api('/groups', { method: 'POST', body: JSON.stringify({ name }) });
+      closeAllModals();
+      document.getElementById('create-name').value = '';
+      showToast('Group created!');
+      loadGroups();
+    } catch (e) {
+      showToast(e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Create';
+    }
+  }
+
+  // ── Join modal ────────────────────────────────────
+  function openJoinModal() {
+    document.getElementById('modal-backdrop').style.display = 'flex';
+    document.getElementById('modal-join').style.display = 'block';
+    document.getElementById('modal-create').style.display = 'none';
+    document.getElementById('join-error').style.display = 'none';
+    setTimeout(() => document.getElementById('join-code').focus(), 50);
+  }
+
+  async function doJoin() {
+    const code = document.getElementById('join-code').value.trim().toUpperCase();
+    if (!code) return;
+    const btn = document.getElementById('join-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>';
+    try {
+      const g = await api('/groups/join', { method: 'POST', body: JSON.stringify({ invite_code: code }) });
+      closeAllModals();
+      document.getElementById('join-code').value = '';
+      showToast(`Joined "${g.name}"!`);
+      loadGroups();
+    } catch (e) {
+      const el = document.getElementById('join-error');
+      el.textContent = e.message;
+      el.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Join';
+    }
+  }
+
+  // ── Utilities ─────────────────────────────────────
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal-backdrop')) closeAllModals();
+  }
+
+  function closeAllModals() {
+    document.getElementById('modal-backdrop').style.display = 'none';
+    document.getElementById('modal-create').style.display = 'none';
+    document.getElementById('modal-join').style.display = 'none';
+  }
+
+  function copyInviteCode() {
+    copyCode(document.getElementById('detail-code').textContent);
+  }
+
+  function copyCode(code) {
+    navigator.clipboard.writeText(code).then(() => showToast('Invite code copied!'));
+  }
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function esc(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
 </body>
 </html>
