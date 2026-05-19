@@ -6,7 +6,8 @@ from datetime import datetime, timedelta, timezone
 from uuid import UUID, uuid4
 
 import uvicorn
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, status, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
@@ -15,7 +16,7 @@ from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy import Column, ForeignKey, String, Text, Table
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import DeclarativeBase, relationship, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, relationship, selectinload, sessionmaker
 from sqlalchemy import select
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -84,13 +85,35 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan, title="InSync API")
 
+ALLOWED_ORIGINS = {"http://localhost", "http://localhost:3000"}
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    """
+    Re-apply CORS headers on error responses.
+    Starlette's CORSMiddleware does not reliably decorate responses that are
+    produced by its own exception handler, so browsers see a CORS error on top
+    of the real HTTP error.  Handling it here guarantees the header is present.
+    """
+    origin = request.headers.get("origin", "")
+    headers = {}
+    if origin in ALLOWED_ORIGINS:
+        headers["Access-Control-Allow-Origin"] = origin
+        headers["Access-Control-Allow-Credentials"] = "true"
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail},
+        headers=headers,
+    )
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost", "http://localhost:3000"],
+    allow_origins=list(ALLOWED_ORIGINS),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -227,85 +250,13 @@ async def me(current_user: User = Depends(get_current_user)):
 # ── Group Routes ──────────────────────────────────────────────────────────────
 
 
-@app.post("/groups", response_model=GroupOut, status_code=201)
-async def create_group(body: GroupCreate, current_user: User = Depends(get_current_user)):
-    async with async_session() as session:
-        # Ensure unique invite code
-        while True:
-            code = generate_invite_code()
-            existing = await session.execute(select(Group).where(Group.invite_code == code))
-            if not existing.scalar_one_or_none():
-                break
-
-        group = Group(
-            id=uuid4(),
-            name=body.name,
-            invite_code=code,
-            owner_id=current_user.id,
-        )
-        session.add(group)
-        await session.flush()
-
-        # Add creator as first member
-        await session.execute(
-            group_members.insert().values(user_id=current_user.id, group_id=group.id)
-        )
-        await session.commit()
-        await session.refresh(group)
-
-        member_count = len(group.members)
-
-    return GroupOut(
-        id=group.id,
-        name=group.name,
-        invite_code=group.invite_code,
-        owner_id=group.owner_id,
-        member_count=member_count,
-    )
-
-
-@app.post("/groups/join", response_model=GroupOut)
-async def join_group(body: GroupJoin, current_user: User = Depends(get_current_user)):
-    async with async_session() as session:
-        result = await session.execute(
-            select(Group).where(Group.invite_code == body.invite_code.upper())
-        )
-        group = result.scalar_one_or_none()
-        if not group:
-            raise HTTPException(status_code=404, detail="Invalid invite code")
-
-        # Check already a member
-        already = await session.execute(
-            select(group_members).where(
-                group_members.c.user_id == current_user.id,
-                group_members.c.group_id == group.id,
-            )
-        )
-        if already.first():
-            raise HTTPException(status_code=400, detail="Already a member of this group")
-
-        await session.execute(
-            group_members.insert().values(user_id=current_user.id, group_id=group.id)
-        )
-        await session.commit()
-        await session.refresh(group)
-
-        member_count = len(group.members)
-
-    return GroupOut(
-        id=group.id,
-        name=group.name,
-        invite_code=group.invite_code,
-        owner_id=group.owner_id,
-        member_count=member_count,
-    )
-
-
+# ── GET /groups/me ────────────────────────────────────────────────────────────
 @app.get("/groups/me", response_model=list[GroupOut])
 async def my_groups(current_user: User = Depends(get_current_user)):
     async with async_session() as session:
         result = await session.execute(
             select(Group)
+            .options(selectinload(Group.members))          # ← add this
             .join(group_members, Group.id == group_members.c.group_id)
             .where(group_members.c.user_id == current_user.id)
         )
@@ -322,15 +273,95 @@ async def my_groups(current_user: User = Depends(get_current_user)):
         ]
 
 
+# ── POST /groups ──────────────────────────────────────────────────────────────
+@app.post("/groups", response_model=GroupOut, status_code=201)
+async def create_group(body: GroupCreate, current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        while True:
+            code = generate_invite_code()
+            existing = await session.execute(select(Group).where(Group.invite_code == code))
+            if not existing.scalar_one_or_none():
+                break
+
+        group = Group(id=uuid4(), name=body.name, invite_code=code, owner_id=current_user.id)
+        session.add(group)
+        await session.flush()
+
+        await session.execute(
+            group_members.insert().values(user_id=current_user.id, group_id=group.id)
+        )
+        await session.commit()
+
+        # Re-fetch with members eagerly loaded
+        result = await session.execute(
+            select(Group).options(selectinload(Group.members)).where(Group.id == group.id)
+        )
+        group = result.scalar_one()
+
+    return GroupOut(
+        id=group.id,
+        name=group.name,
+        invite_code=group.invite_code,
+        owner_id=group.owner_id,
+        member_count=len(group.members),
+    )
+
+
+# ── POST /groups/join ─────────────────────────────────────────────────────────
+@app.post("/groups/join", response_model=GroupOut)
+async def join_group(body: GroupJoin, current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        result = await session.execute(
+            select(Group)
+            .options(selectinload(Group.members))          # ← add this
+            .where(Group.invite_code == body.invite_code.upper())
+        )
+        group = result.scalar_one_or_none()
+        if not group:
+            raise HTTPException(status_code=404, detail="Invalid invite code")
+
+        already = await session.execute(
+            select(group_members).where(
+                group_members.c.user_id == current_user.id,
+                group_members.c.group_id == group.id,
+            )
+        )
+        if already.first():
+            raise HTTPException(status_code=400, detail="Already a member of this group")
+
+        await session.execute(
+            group_members.insert().values(user_id=current_user.id, group_id=group.id)
+        )
+        await session.commit()
+
+        # Re-fetch so member_count reflects the new member
+        result = await session.execute(
+            select(Group).options(selectinload(Group.members)).where(Group.id == group.id)
+        )
+        group = result.scalar_one()
+
+    return GroupOut(
+        id=group.id,
+        name=group.name,
+        invite_code=group.invite_code,
+        owner_id=group.owner_id,
+        member_count=len(group.members),
+    )
+
+
+# ── GET /groups/{group_id} ────────────────────────────────────────────────────
 @app.get("/groups/{group_id}", response_model=GroupDetail)
 async def get_group(group_id: UUID, current_user: User = Depends(get_current_user)):
     async with async_session() as session:
-        result = await session.execute(select(Group).where(Group.id == group_id))
+        result = await session.execute(
+            select(Group)
+            .options(selectinload(Group.members))          # ← add this
+            .where(Group.id == group_id)
+        )
         group = result.scalar_one_or_none()
         if not group:
             raise HTTPException(status_code=404, detail="Group not found")
 
-        # Check membership
         membership = await session.execute(
             select(group_members).where(
                 group_members.c.user_id == current_user.id,
@@ -350,7 +381,6 @@ async def get_group(group_id: UUID, current_user: User = Depends(get_current_use
         member_count=len(members),
         members=members,
     )
-
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
