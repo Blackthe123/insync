@@ -25,1165 +25,275 @@
     }
 
     html, body { height: 100%; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--charcoal);
-      min-height: 100vh;
-    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; }
 
     /* ── Landing ──────────────────────────────────── */
-    #landing {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #landing::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(196,113,74,.18) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(74,124,89,.12) 0%, transparent 55%);
-      pointer-events: none;
-    }
-
-    .landing-inner {
-      max-width: 520px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      animation: fadeUp .7s ease both;
-    }
-
-    .logo-mark {
-      width: 56px;
-      height: 56px;
-      background: var(--clay);
-      border-radius: 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 8px 24px rgba(196,113,74,.3);
-    }
-
-    .logo-mark svg { width: 28px; height: 28px; }
-
-    h1.wordmark {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--charcoal);
-      letter-spacing: -.03em;
-      line-height: 1;
-      margin-bottom: .5rem;
-    }
-
-    .tagline {
-      font-size: .95rem;
-      color: var(--mid);
-      font-weight: 300;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
-    }
-
-    .auth-tabs {
-      display: flex;
-      background: var(--warm);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 4px;
-      margin-bottom: 1.5rem;
-      gap: 4px;
-    }
-
-    .auth-tab {
-      flex: 1;
-      padding: .55rem;
-      border: none;
-      background: transparent;
-      border-radius: 9px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .875rem;
-      font-weight: 500;
-      color: var(--mid);
-      cursor: pointer;
-      transition: all .2s;
-    }
-
-    .auth-tab.active {
-      background: white;
-      color: var(--charcoal);
-      box-shadow: 0 1px 6px rgba(0,0,0,.1);
-    }
-
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 4px 24px rgba(44,40,37,.06);
-    }
-
-    .field { margin-bottom: 1rem; text-align: left; }
-
-    .field label {
-      display: block;
-      font-size: .8rem;
-      font-weight: 500;
-      color: var(--mid);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      margin-bottom: .4rem;
-    }
-
-    .field input {
-      width: 100%;
-      padding: .7rem .9rem;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem;
-      color: var(--charcoal);
-      background: var(--cream);
-      transition: border-color .15s, box-shadow .15s;
-      outline: none;
-    }
-
-    .field input:focus {
-      border-color: var(--clay);
-      box-shadow: 0 0 0 3px rgba(196,113,74,.12);
-      background: white;
-    }
-
-    .btn-primary {
-      width: 100%;
-      padding: .8rem;
-      background: var(--clay);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem;
-      font-weight: 500;
-      cursor: pointer;
-      margin-top: .5rem;
-      transition: background .15s, transform .1s, box-shadow .15s;
-      box-shadow: 0 4px 12px rgba(196,113,74,.25);
-    }
-
-    .btn-primary:hover { background: var(--clay-dk); box-shadow: 0 6px 16px rgba(196,113,74,.3); }
-    .btn-primary:active { transform: translateY(1px); }
-    .btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; }
-
-    .error-msg {
-      background: #FEF0EC;
-      border: 1px solid #F5C6B5;
-      color: #9B3D1F;
-      padding: .6rem .9rem;
-      border-radius: 8px;
-      font-size: .85rem;
-      margin-bottom: 1rem;
-    }
+    #landing { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; position:relative; overflow:hidden; }
+    #landing::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(196,113,74,.18) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 10% 80%, rgba(74,124,89,.12) 0%, transparent 55%); pointer-events:none; }
+    .landing-inner { max-width:520px; width:100%; text-align:center; position:relative; animation:fadeUp .7s ease both; }
+    .logo-mark { width:56px; height:56px; background:var(--clay); border-radius:16px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:1.5rem; box-shadow:0 8px 24px rgba(196,113,74,.3); }
+    .logo-mark svg { width:28px; height:28px; }
+    h1.wordmark { font-family:'Playfair Display',serif; font-size:3rem; font-weight:700; color:var(--charcoal); letter-spacing:-.03em; line-height:1; margin-bottom:.5rem; }
+    .tagline { font-size:.95rem; color:var(--mid); font-weight:300; margin-bottom:2.5rem; line-height:1.6; }
+    .auth-tabs { display:flex; background:var(--warm); border:1px solid var(--border); border-radius:var(--radius); padding:4px; margin-bottom:1.5rem; gap:4px; }
+    .auth-tab { flex:1; padding:.55rem; border:none; background:transparent; border-radius:9px; font-family:'DM Sans',sans-serif; font-size:.875rem; font-weight:500; color:var(--mid); cursor:pointer; transition:all .2s; }
+    .auth-tab.active { background:white; color:var(--charcoal); box-shadow:0 1px 6px rgba(0,0,0,.1); }
+    .card { background:white; border:1px solid var(--border); border-radius:16px; padding:2rem; box-shadow:0 4px 24px rgba(44,40,37,.06); }
+    .field { margin-bottom:1rem; text-align:left; }
+    .field label { display:block; font-size:.8rem; font-weight:500; color:var(--mid); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
+    .field input { width:100%; padding:.7rem .9rem; border:1.5px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.95rem; color:var(--charcoal); background:var(--cream); transition:border-color .15s,box-shadow .15s; outline:none; }
+    .field input:focus { border-color:var(--clay); box-shadow:0 0 0 3px rgba(196,113,74,.12); background:white; }
+    .btn-primary { width:100%; padding:.8rem; background:var(--clay); color:white; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.95rem; font-weight:500; cursor:pointer; margin-top:.5rem; transition:background .15s,transform .1s,box-shadow .15s; box-shadow:0 4px 12px rgba(196,113,74,.25); }
+    .btn-primary:hover { background:var(--clay-dk); }
+    .btn-primary:active { transform:translateY(1px); }
+    .btn-primary:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+    .error-msg { background:#FEF0EC; border:1px solid #F5C6B5; color:#9B3D1F; padding:.6rem .9rem; border-radius:8px; font-size:.85rem; margin-bottom:1rem; }
 
     /* ── App Shell ────────────────────────────────── */
-    #app { display: none; min-height: 100vh; flex-direction: column; }
-
-    nav {
-      background: white;
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--charcoal);
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
-
-    .nav-logo .dot { color: var(--clay); }
-
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
-
-    .user-pill {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      background: var(--warm);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: .3rem .75rem .3rem .3rem;
-    }
-
-    .avatar {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: var(--clay);
-      color: white;
-      font-size: .75rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .user-pill span { font-size: .85rem; font-weight: 500; }
-
-    .btn-ghost {
-      padding: .4rem .9rem;
-      background: transparent;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .85rem;
-      font-weight: 500;
-      color: var(--mid);
-      cursor: pointer;
-      transition: all .15s;
-    }
-
-    .btn-ghost:hover { border-color: var(--charcoal); color: var(--charcoal); }
+    #app { display:none; min-height:100vh; flex-direction:column; }
+    nav { background:white; border-bottom:1px solid var(--border); padding:0 2rem; height:60px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:10; }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--charcoal); display:flex; align-items:center; gap:.5rem; }
+    .nav-logo .dot { color:var(--clay); }
+    .nav-right { display:flex; align-items:center; gap:1rem; }
+    .user-pill { display:flex; align-items:center; gap:.5rem; background:var(--warm); border:1px solid var(--border); border-radius:999px; padding:.3rem .75rem .3rem .3rem; }
+    .avatar { width:28px; height:28px; border-radius:50%; background:var(--clay); color:white; font-size:.75rem; font-weight:600; display:flex; align-items:center; justify-content:center; }
+    .user-pill span { font-size:.85rem; font-weight:500; }
+    .btn-ghost { padding:.4rem .9rem; background:transparent; border:1.5px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:500; color:var(--mid); cursor:pointer; transition:all .15s; }
+    .btn-ghost:hover { border-color:var(--charcoal); color:var(--charcoal); }
 
     /* ── Dashboard ────────────────────────────────── */
-    main {
-      flex: 1;
-      padding: 2.5rem 2rem;
-      max-width: 960px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .page-header {
-      margin-bottom: 2rem;
-      animation: fadeUp .4s ease both;
-    }
-
-    .page-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: .25rem;
-    }
-
-    .page-header p { color: var(--mid); font-size: .95rem; }
-
-    .groups-actions {
-      display: flex;
-      gap: .75rem;
-      margin-bottom: 2rem;
-      animation: fadeUp .4s .05s ease both;
-    }
-
-    .btn-create {
-      padding: .65rem 1.25rem;
-      background: var(--clay);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .9rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-      transition: background .15s, box-shadow .15s;
-      box-shadow: 0 2px 8px rgba(196,113,74,.25);
-    }
-
-    .btn-create:hover { background: var(--clay-dk); }
-
-    .btn-join {
-      padding: .65rem 1.25rem;
-      background: white;
-      color: var(--charcoal);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .9rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-      transition: all .15s;
-    }
-
-    .btn-join:hover { border-color: var(--charcoal); }
-
-    .groups-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1rem;
-    }
-
-    .group-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.4rem;
-      cursor: pointer;
-      transition: all .2s;
-      animation: fadeUp .4s ease both;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .group-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--clay);
-      transform: scaleX(0);
-      transition: transform .2s;
-      transform-origin: left;
-    }
-
-    .group-card:hover { border-color: var(--clay); box-shadow: 0 4px 20px rgba(44,40,37,.08); transform: translateY(-2px); }
-    .group-card:hover::before { transform: scaleX(1); }
-
-    .group-card-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: .5rem;
-    }
-
-    .group-card-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: .82rem;
-      color: var(--mid);
-      margin-bottom: 1rem;
-    }
-
-    .invite-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: .3rem;
-      background: var(--warm);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: .25rem .55rem;
-      font-size: .78rem;
-      font-family: 'DM Sans', monospace;
-      font-weight: 500;
-      color: var(--charcoal);
-      cursor: pointer;
-      transition: background .15s;
-      letter-spacing: .05em;
-    }
-
-    .invite-chip:hover { background: var(--border); }
-    .invite-chip .copy-label { font-size: .7rem; color: var(--mid); }
-
-    .empty-state {
-      grid-column: 1/-1;
-      text-align: center;
-      padding: 4rem 2rem;
-      animation: fadeUp .4s ease both;
-    }
-
-    .empty-icon {
-      width: 64px; height: 64px;
-      background: var(--warm);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-    }
-
-    .empty-state h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      margin-bottom: .5rem;
-    }
-
-    .empty-state p { color: var(--mid); font-size: .9rem; }
+    main { flex:1; padding:2.5rem 2rem; max-width:960px; margin:0 auto; width:100%; }
+    .page-header { margin-bottom:2rem; animation:fadeUp .4s ease both; }
+    .page-header h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; margin-bottom:.25rem; }
+    .page-header p { color:var(--mid); font-size:.95rem; }
+    .groups-actions { display:flex; gap:.75rem; margin-bottom:2rem; animation:fadeUp .4s .05s ease both; }
+    .btn-create { padding:.65rem 1.25rem; background:var(--clay); color:white; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.9rem; font-weight:500; cursor:pointer; display:flex; align-items:center; gap:.4rem; transition:background .15s,box-shadow .15s; box-shadow:0 2px 8px rgba(196,113,74,.25); }
+    .btn-create:hover { background:var(--clay-dk); }
+    .btn-join { padding:.65rem 1.25rem; background:white; color:var(--charcoal); border:1.5px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.9rem; font-weight:500; cursor:pointer; display:flex; align-items:center; gap:.4rem; transition:all .15s; }
+    .btn-join:hover { border-color:var(--charcoal); }
+    .groups-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; }
+    .group-card { background:white; border:1px solid var(--border); border-radius:14px; padding:1.4rem; cursor:pointer; transition:all .2s; animation:fadeUp .4s ease both; position:relative; overflow:hidden; }
+    .group-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--clay); transform:scaleX(0); transition:transform .2s; transform-origin:left; }
+    .group-card:hover { border-color:var(--clay); box-shadow:0 4px 20px rgba(44,40,37,.08); transform:translateY(-2px); }
+    .group-card:hover::before { transform:scaleX(1); }
+    .group-card-name { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; margin-bottom:.5rem; }
+    .group-card-meta { display:flex; align-items:center; gap:1rem; font-size:.82rem; color:var(--mid); margin-bottom:1rem; }
+    .invite-chip { display:inline-flex; align-items:center; gap:.3rem; background:var(--warm); border:1px solid var(--border); border-radius:6px; padding:.25rem .55rem; font-size:.78rem; font-family:'DM Sans',monospace; font-weight:500; color:var(--charcoal); cursor:pointer; transition:background .15s; letter-spacing:.05em; }
+    .invite-chip:hover { background:var(--border); }
+    .invite-chip .copy-label { font-size:.7rem; color:var(--mid); }
+    .empty-state { grid-column:1/-1; text-align:center; padding:4rem 2rem; animation:fadeUp .4s ease both; }
+    .empty-icon { width:64px; height:64px; background:var(--warm); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; }
+    .empty-state h3 { font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:.5rem; }
+    .empty-state p { color:var(--mid); font-size:.9rem; }
 
     /* ── Modal ────────────────────────────────────── */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(44,40,37,.4);
-      backdrop-filter: blur(4px);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      animation: fadein .15s ease;
-    }
+    .modal-backdrop { position:fixed; inset:0; background:rgba(44,40,37,.4); backdrop-filter:blur(4px); z-index:100; display:flex; align-items:center; justify-content:center; padding:1rem; animation:fadein .15s ease; }
+    .modal { background:white; border-radius:16px; padding:2rem; width:100%; max-width:420px; box-shadow:0 24px 64px rgba(44,40,37,.15); animation:slideUp .2s ease; }
+    .modal h3 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; margin-bottom:.4rem; }
+    .modal p { color:var(--mid); font-size:.9rem; margin-bottom:1.5rem; }
+    .modal-actions { display:flex; gap:.75rem; margin-top:1.25rem; }
+    .btn-cancel { flex:1; padding:.7rem; background:var(--warm); border:1px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.9rem; font-weight:500; color:var(--charcoal); cursor:pointer; transition:background .15s; }
+    .btn-cancel:hover { background:var(--border); }
+    .btn-danger { flex:1; padding:.7rem; background:#C0392B; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.9rem; font-weight:500; color:white; cursor:pointer; transition:background .15s; }
+    .btn-danger:hover { background:#A93226; }
+    .btn-danger:disabled { opacity:.6; cursor:not-allowed; }
 
-    .modal {
-      background: white;
-      border-radius: 16px;
-      padding: 2rem;
-      width: 100%;
-      max-width: 420px;
-      box-shadow: 0 24px 64px rgba(44,40,37,.15);
-      animation: slideUp .2s ease;
-    }
-
-    .modal h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: .4rem;
-    }
-
-    .modal p { color: var(--mid); font-size: .9rem; margin-bottom: 1.5rem; }
-
-    .modal-actions { display: flex; gap: .75rem; margin-top: 1.25rem; }
-
-    .btn-cancel {
-      flex: 1;
-      padding: .7rem;
-      background: var(--warm);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .9rem;
-      font-weight: 500;
-      color: var(--charcoal);
-      cursor: pointer;
-      transition: background .15s;
-    }
-
-    .btn-cancel:hover { background: var(--border); }
-
-    .btn-danger {
-      flex: 1;
-      padding: .7rem;
-      background: #C0392B;
-      border: none;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .9rem;
-      font-weight: 500;
-      color: white;
-      cursor: pointer;
-      transition: background .15s;
-    }
-
-    .btn-danger:hover { background: #A93226; }
-    .btn-danger:disabled { opacity: .6; cursor: not-allowed; }
-
-    /* ── Group Detail Panel ───────────────────────── */
-    #group-detail { display: none; }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-      font-size: .88rem;
-      color: var(--mid);
-      cursor: pointer;
-      margin-bottom: 1.5rem;
-      padding: .3rem 0;
-      background: none;
-      border: none;
-      font-family: 'DM Sans', sans-serif;
-      transition: color .15s;
-    }
-
-    .back-btn:hover { color: var(--charcoal); }
-
-    .detail-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      gap: 1rem;
-    }
-
-    .detail-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    .btn-leave {
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-      padding: .5rem .9rem;
-      background: transparent;
-      border: 1.5px solid #E8B4AC;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .85rem;
-      font-weight: 500;
-      color: #C0392B;
-      cursor: pointer;
-      transition: all .15s;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .btn-leave:hover { background: #FEF0EC; border-color: #C0392B; }
+    /* ── Group Detail ─────────────────────────────── */
+    #group-detail { display:none; }
+    .back-btn { display:inline-flex; align-items:center; gap:.4rem; font-size:.88rem; color:var(--mid); cursor:pointer; margin-bottom:1.5rem; padding:.3rem 0; background:none; border:none; font-family:'DM Sans',sans-serif; transition:color .15s; }
+    .back-btn:hover { color:var(--charcoal); }
+    .detail-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:1.5rem; gap:1rem; }
+    .detail-title { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; }
+    .btn-leave { display:inline-flex; align-items:center; gap:.4rem; padding:.5rem .9rem; background:transparent; border:1.5px solid #E8B4AC; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:500; color:#C0392B; cursor:pointer; transition:all .15s; white-space:nowrap; flex-shrink:0; }
+    .btn-leave:hover { background:#FEF0EC; border-color:#C0392B; }
 
     /* ── Courses Card ─────────────────────────────── */
-    .courses-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      animation: fadeUp .35s ease both;
-    }
+    .courses-card { background:white; border:1px solid var(--border); border-radius:16px; padding:1.5rem; margin-bottom:1.5rem; animation:fadeUp .35s ease both; }
+    .courses-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+    .courses-card-label { font-size:.78rem; font-weight:500; text-transform:uppercase; letter-spacing:.08em; color:var(--mid); margin-bottom:.2rem; }
+    .courses-card-sub { font-size:.85rem; color:var(--mid); }
+    .btn-save-courses { display:inline-flex; align-items:center; gap:.35rem; padding:.45rem 1rem; background:var(--clay); color:white; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:500; cursor:pointer; flex-shrink:0; transition:background .15s,opacity .15s; box-shadow:0 2px 8px rgba(196,113,74,.2); }
+    .btn-save-courses:hover { background:var(--clay-dk); }
+    .btn-save-courses:disabled { opacity:.6; cursor:not-allowed; }
+    .course-search-wrap { position:relative; margin-bottom:.85rem; }
+    .course-search-input { width:100%; padding:.6rem .9rem .6rem 2.25rem; border:1.5px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.9rem; color:var(--charcoal); background:var(--cream); outline:none; transition:border-color .15s,box-shadow .15s; }
+    .course-search-input:focus { border-color:var(--clay); box-shadow:0 0 0 3px rgba(196,113,74,.1); background:white; }
+    .course-search-icon { position:absolute; left:.7rem; top:50%; transform:translateY(-50%); pointer-events:none; color:var(--mid); }
+    .course-search-loading { position:absolute; right:.75rem; top:50%; transform:translateY(-50%); pointer-events:none; }
+    .course-dropdown { position:absolute; top:calc(100% + 5px); left:0; right:0; background:white; border:1px solid var(--border); border-radius:10px; box-shadow:0 8px 28px rgba(44,40,37,.12); z-index:50; overflow:hidden; display:none; }
+    .course-dropdown-item { padding:.6rem .9rem; font-size:.88rem; font-family:'DM Sans',monospace; font-weight:500; cursor:pointer; display:flex; align-items:center; gap:.5rem; transition:background .1s; color:var(--charcoal); }
+    .course-dropdown-item:hover,.course-dropdown-item.hi { background:var(--warm); }
+    .course-dropdown-item .match { color:var(--clay); font-weight:700; }
+    .course-dropdown-empty { padding:.75rem .9rem; font-size:.85rem; color:var(--mid); font-style:italic; }
+    .course-chips { display:flex; flex-wrap:wrap; gap:.45rem; min-height:28px; margin-bottom:1.25rem; align-items:center; }
+    .course-chip { display:inline-flex; align-items:center; gap:.3rem; background:var(--warm); border:1px solid var(--border); border-radius:999px; padding:.25rem .5rem .25rem .7rem; font-size:.8rem; font-weight:600; font-family:'DM Sans',monospace; color:var(--charcoal); letter-spacing:.03em; animation:chipIn .15s ease both; }
+    @keyframes chipIn { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
+    .chip-remove { background:none; border:none; cursor:pointer; color:var(--mid); font-size:1.05rem; line-height:1; padding:0 2px; display:flex; align-items:center; transition:color .1s; font-family:sans-serif; }
+    .chip-remove:hover { color:#C0392B; }
+    .no-courses-hint { font-size:.85rem; color:var(--mid); font-style:italic; }
 
-    .courses-card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+    /* ── Readiness ────────────────────────────────── */
+    .readiness-divider { height:1px; background:var(--border); margin:1rem -1.5rem; }
+    .readiness-section { padding-top:1rem; }
+    .readiness-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem; }
+    .readiness-section-label { font-size:.78rem; font-weight:500; text-transform:uppercase; letter-spacing:.08em; color:var(--mid); }
+    .readiness-pill { font-size:.78rem; font-weight:600; padding:.2rem .65rem; border-radius:999px; }
+    .readiness-pill.ready { background:var(--green-bg); color:var(--green); border:1px solid var(--green-bd); }
+    .readiness-pill.waiting { background:var(--warm); color:var(--mid); border:1px solid var(--border); }
+    .readiness-banner { padding:.6rem .85rem; border-radius:8px; font-size:.84rem; font-weight:500; margin-bottom:.75rem; display:flex; align-items:center; gap:.5rem; }
+    .readiness-banner.is-ready { background:var(--green-bg); border:1px solid var(--green-bd); color:var(--green); }
+    .readiness-banner.is-waiting { background:var(--warm); border:1px solid var(--border); color:var(--mid); }
+    .readiness-list { display:flex; flex-direction:column; gap:.4rem; }
+    .readiness-row { display:flex; align-items:center; gap:.75rem; padding:.55rem .75rem; border-radius:10px; background:var(--cream); }
+    .readiness-av { width:30px; height:30px; border-radius:50%; background:var(--warm); color:var(--mid); font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1.5px solid var(--border); }
+    .readiness-av.done { background:var(--green-bg); color:var(--green); border-color:var(--green-bd); }
+    .readiness-info { flex:1; min-width:0; }
+    .readiness-name { font-size:.88rem; font-weight:500; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .readiness-courses-text { font-size:.76rem; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:1px; }
+    .readiness-courses-text.has { color:var(--green); }
+    .readiness-courses-text.none { color:var(--mid); font-style:italic; }
+    .readiness-check-icon { width:18px; height:18px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+    .readiness-check-icon.done { background:var(--green); }
+    .readiness-check-icon.pending { border:1.5px solid var(--border); background:transparent; }
 
-    .courses-card-label {
-      font-size: .78rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--mid);
-      margin-bottom: .2rem;
-    }
-
-    .courses-card-sub {
-      font-size: .85rem;
-      color: var(--mid);
-    }
-
-    /* Save button */
-    .btn-save-courses {
-      display: inline-flex;
-      align-items: center;
-      gap: .35rem;
-      padding: .45rem 1rem;
-      background: var(--clay);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .85rem;
-      font-weight: 500;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background .15s, opacity .15s;
-      box-shadow: 0 2px 8px rgba(196,113,74,.2);
-    }
-
-    .btn-save-courses:hover { background: var(--clay-dk); }
-    .btn-save-courses:disabled { opacity: .6; cursor: not-allowed; }
-
-    /* Course search combobox */
-    .course-search-wrap {
-      position: relative;
-      margin-bottom: .85rem;
-    }
-
-    .course-search-input {
-      width: 100%;
-      padding: .6rem .9rem .6rem 2.25rem;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .9rem;
-      color: var(--charcoal);
-      background: var(--cream);
-      outline: none;
-      transition: border-color .15s, box-shadow .15s;
-    }
-
-    .course-search-input:focus {
-      border-color: var(--clay);
-      box-shadow: 0 0 0 3px rgba(196,113,74,.1);
-      background: white;
-    }
-
-    .course-search-icon {
-      position: absolute;
-      left: .7rem;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: var(--mid);
-    }
-
-    .course-search-loading {
-      position: absolute;
-      right: .75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
-
-    /* Dropdown */
-    .course-dropdown {
-      position: absolute;
-      top: calc(100% + 5px);
-      left: 0; right: 0;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      box-shadow: 0 8px 28px rgba(44,40,37,.12);
-      z-index: 50;
-      overflow: hidden;
-      display: none;
-    }
-
-    .course-dropdown-item {
-      padding: .6rem .9rem;
-      font-size: .88rem;
-      font-family: 'DM Sans', monospace;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      transition: background .1s;
-      color: var(--charcoal);
-    }
-
-    .course-dropdown-item:hover,
-    .course-dropdown-item.hi {
-      background: var(--warm);
-    }
-
-    .course-dropdown-item .match { color: var(--clay); font-weight: 700; }
-
-    .course-dropdown-empty {
-      padding: .75rem .9rem;
-      font-size: .85rem;
-      color: var(--mid);
-      font-style: italic;
-    }
-
-    /* Course chips */
-    .course-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .45rem;
-      min-height: 28px;
-      margin-bottom: 1.25rem;
-      align-items: center;
-    }
-
-    .course-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: .3rem;
-      background: var(--warm);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: .25rem .5rem .25rem .7rem;
-      font-size: .8rem;
-      font-weight: 600;
-      font-family: 'DM Sans', monospace;
-      color: var(--charcoal);
-      letter-spacing: .03em;
-      animation: chipIn .15s ease both;
-    }
-
-    @keyframes chipIn {
-      from { opacity: 0; transform: scale(.85); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    .chip-remove {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--mid);
-      font-size: 1.05rem;
-      line-height: 1;
-      padding: 0 2px;
-      display: flex;
-      align-items: center;
-      transition: color .1s;
-      font-family: sans-serif;
-    }
-
-    .chip-remove:hover { color: #C0392B; }
-
-    .no-courses-hint {
-      font-size: .85rem;
-      color: var(--mid);
-      font-style: italic;
-    }
-
-    /* ── Readiness section ────────────────────────── */
-    .readiness-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 1rem -1.5rem;
-    }
-
-    .readiness-section { padding-top: 1rem; }
-
-    .readiness-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: .75rem;
-    }
-
-    .readiness-section-label {
-      font-size: .78rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--mid);
-    }
-
-    .readiness-pill {
-      font-size: .78rem;
-      font-weight: 600;
-      padding: .2rem .65rem;
-      border-radius: 999px;
-    }
-
-    .readiness-pill.ready {
-      background: var(--green-bg);
-      color: var(--green);
-      border: 1px solid var(--green-bd);
-    }
-
-    .readiness-pill.waiting {
-      background: var(--warm);
-      color: var(--mid);
-      border: 1px solid var(--border);
-    }
-
-    .readiness-banner {
-      padding: .6rem .85rem;
-      border-radius: 8px;
-      font-size: .84rem;
-      font-weight: 500;
-      margin-bottom: .75rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
-
-    .readiness-banner.is-ready {
-      background: var(--green-bg);
-      border: 1px solid var(--green-bd);
-      color: var(--green);
-    }
-
-    .readiness-banner.is-waiting {
-      background: var(--warm);
-      border: 1px solid var(--border);
-      color: var(--mid);
-    }
-
-    .readiness-list {
-      display: flex;
-      flex-direction: column;
-      gap: .4rem;
-    }
-
-    .readiness-row {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      padding: .55rem .75rem;
-      border-radius: 10px;
-      background: var(--cream);
-      transition: background .15s;
-    }
-
-    .readiness-av {
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      background: var(--warm);
-      color: var(--mid);
-      font-size: .72rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: background .2s, color .2s;
-      border: 1.5px solid var(--border);
-    }
-
-    .readiness-av.done {
-      background: var(--green-bg);
-      color: var(--green);
-      border-color: var(--green-bd);
-    }
-
-    .readiness-info { flex: 1; min-width: 0; }
-
-    .readiness-name {
-      font-size: .88rem;
-      font-weight: 500;
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .readiness-courses-text {
-      font-size: .76rem;
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-top: 1px;
-    }
-
-    .readiness-courses-text.has { color: var(--green); }
-    .readiness-courses-text.none { color: var(--mid); font-style: italic; }
-
-    .readiness-check-icon {
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .readiness-check-icon.done { background: var(--green); }
-    .readiness-check-icon.pending {
-      border: 1.5px solid var(--border);
-      background: transparent;
-    }
-
-    /* ── Two-column layout for detail view ───────── */
-    .detail-columns {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 1.5rem;
-      align-items: start;
-    }
-
-    @media (max-width: 680px) {
-      .detail-columns { grid-template-columns: 1fr; }
-    }
-
-    .members-section h4,
-    .chat-section h4 {
-      font-size: .8rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--mid);
-      margin-bottom: 1rem;
-    }
-
-    .member-list { display: flex; flex-direction: column; gap: .5rem; }
-
-    .member-row {
-      display: flex;
-      align-items: center;
-      gap: .85rem;
-      padding: .75rem 1rem;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-    }
-
-    .member-row .avatar { width: 36px; height: 36px; font-size: .85rem; }
-
-    .member-info { flex: 1; }
-    .member-name { font-weight: 500; font-size: .95rem; }
-    .member-email { font-size: .8rem; color: var(--mid); }
-
-    .owner-badge {
-      font-size: .72rem;
-      background: #FEF0EC;
-      color: var(--clay);
-      border: 1px solid #F5C6B5;
-      border-radius: 999px;
-      padding: .15rem .55rem;
-      font-weight: 500;
-    }
+    /* ── Two-column layout ────────────────────────── */
+    .detail-columns { display:grid; grid-template-columns:1fr 1.5fr; gap:1.5rem; align-items:start; }
+    @media(max-width:680px) { .detail-columns { grid-template-columns:1fr; } }
+    .members-section h4,.chat-section h4 { font-size:.8rem; font-weight:500; text-transform:uppercase; letter-spacing:.08em; color:var(--mid); margin-bottom:1rem; }
+    .member-list { display:flex; flex-direction:column; gap:.5rem; }
+    .member-row { display:flex; align-items:center; gap:.85rem; padding:.75rem 1rem; background:white; border:1px solid var(--border); border-radius:10px; }
+    .member-row .avatar { width:36px; height:36px; font-size:.85rem; }
+    .member-info { flex:1; }
+    .member-name { font-weight:500; font-size:.95rem; }
+    .member-email { font-size:.8rem; color:var(--mid); }
+    .owner-badge { font-size:.72rem; background:#FEF0EC; color:var(--clay); border:1px solid #F5C6B5; border-radius:999px; padding:.15rem .55rem; font-weight:500; }
 
     /* ── Chat ─────────────────────────────────────── */
-    .chat-section {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      display: flex;
-      flex-direction: column;
-      height: 480px;
-    }
+    .chat-section { background:white; border:1px solid var(--border); border-radius:14px; display:flex; flex-direction:column; height:480px; }
+    .chat-section h4 { padding:1rem 1.1rem .75rem; border-bottom:1px solid var(--border); margin-bottom:0; }
+    .chat-messages { flex:1; overflow-y:auto; padding:1rem 1.1rem; display:flex; flex-direction:column; gap:.6rem; scroll-behavior:smooth; }
+    .chat-messages::-webkit-scrollbar { width:4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+    .chat-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--mid); font-size:.88rem; gap:.4rem; opacity:.7; }
+    .msg { display:flex; gap:.75rem; width:100%; margin-bottom:.4rem; }
+    .msg.mine { flex-direction:row-reverse; }
+    .msg-avatar { width:32px; height:32px; border-radius:50%; background:var(--warm); color:var(--clay); font-size:.8rem; font-weight:600; display:flex; align-items:center; justify-content:center; flex-shrink:0; align-self:flex-end; }
+    .msg.mine .msg-avatar { display:none; }
+    .msg-content { display:flex; flex-direction:column; max-width:75%; }
+    .msg.mine .msg-content { align-items:flex-end; }
+    .msg-meta { font-size:.75rem; color:var(--mid); margin-bottom:.25rem; display:flex; align-items:baseline; gap:.4rem; }
+    .msg-author { font-weight:600; color:var(--charcoal); }
+    .msg-bubble { padding:.65rem .9rem; border-radius:16px; font-size:.95rem; line-height:1.4; word-break:break-word; }
+    .msg.mine .msg-bubble { background:var(--clay); color:white; border-bottom-right-radius:4px; }
+    .msg.theirs .msg-bubble { background:white; color:var(--charcoal); border:1px solid var(--border); border-bottom-left-radius:4px; }
+    .chat-input-bar { display:flex; gap:.5rem; padding:.75rem 1rem; border-top:1px solid var(--border); }
+    .chat-input { flex:1; padding:.6rem .9rem; border:1.5px solid var(--border); border-radius:99px; font-family:'DM Sans',sans-serif; font-size:.9rem; color:var(--charcoal); background:var(--cream); outline:none; transition:border-color .15s,box-shadow .15s; }
+    .chat-input:focus { border-color:var(--clay); box-shadow:0 0 0 3px rgba(196,113,74,.1); background:white; }
+    .chat-send { width:38px; height:38px; flex-shrink:0; background:var(--clay); border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s,transform .1s; }
+    .chat-send:hover { background:var(--clay-dk); }
+    .chat-send:active { transform:scale(.92); }
+    .chat-send:disabled { opacity:.5; cursor:not-allowed; }
 
-    .chat-section h4 {
-      padding: 1rem 1.1rem .75rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 0;
-    }
+    /* ── Sync Card (Algorithm) ────────────────────── */
+    .sync-card { background:white; border:1px solid var(--border); border-radius:16px; padding:1.5rem; margin-bottom:1.5rem; animation:fadeUp .4s .1s ease both; }
+    .sync-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:1.25rem; }
+    .sync-card-label { font-size:.78rem; font-weight:500; text-transform:uppercase; letter-spacing:.08em; color:var(--mid); margin-bottom:.2rem; }
+    .sync-card-sub { font-size:.85rem; color:var(--mid); }
 
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: .6rem;
-      scroll-behavior: smooth;
-    }
+    .btn-find-windows { display:inline-flex; align-items:center; gap:.45rem; padding:.55rem 1.2rem; background:var(--charcoal); color:white; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.88rem; font-weight:500; cursor:pointer; flex-shrink:0; transition:background .15s,transform .1s; box-shadow:0 2px 10px rgba(44,40,37,.2); }
+    .btn-find-windows:hover { background:#1a1612; }
+    .btn-find-windows:active { transform:scale(.97); }
+    .btn-find-windows:disabled { opacity:.55; cursor:not-allowed; transform:none; }
 
-    .chat-messages::-webkit-scrollbar { width: 4px; }
-    .chat-messages::-webkit-scrollbar-track { background: transparent; }
-    .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .sync-locked { display:flex; align-items:center; gap:.75rem; padding:1.25rem 1rem; background:var(--cream); border-radius:10px; }
+    .sync-locked-icon { width:36px; height:36px; border-radius:50%; background:var(--warm); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .sync-locked p { font-size:.88rem; color:var(--mid); line-height:1.5; }
 
-    .chat-empty {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--mid);
-      font-size: .88rem;
-      gap: .4rem;
-      opacity: .7;
-    }
+    /* Algorithm progress */
+    .algo-progress { padding:1rem; background:var(--cream); border-radius:10px; }
+    .algo-progress-label { font-size:.85rem; color:var(--mid); margin-bottom:.6rem; display:flex; align-items:center; gap:.5rem; }
+    .algo-bar-track { background:var(--border); border-radius:999px; height:6px; overflow:hidden; }
+    .algo-bar-fill { height:100%; background:var(--clay); border-radius:999px; transition:width .3s ease; }
+    .algo-status { font-size:.78rem; color:var(--mid); margin-top:.5rem; font-style:italic; }
 
-    .msg {
-      display: flex;
-      gap: .75rem;
-      width: 100%;
-      margin-bottom: .4rem;
-    }
+    /* Result: timetable grid */
+    .timetable-wrap { overflow-x:auto; margin-top:1.25rem; }
+    .timetable { border-collapse:collapse; width:100%; font-size:.78rem; min-width:580px; }
+    .timetable th { background:var(--warm); font-weight:500; padding:.4rem .5rem; text-align:center; border:1px solid var(--border); color:var(--mid); font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; }
+    .timetable td { border:1px solid var(--border); padding:0; height:22px; position:relative; }
+    .timetable .time-label { background:var(--cream); font-size:.7rem; color:var(--mid); padding:.2rem .5rem; text-align:right; white-space:nowrap; border:1px solid var(--border); }
+    .slot-free { background:var(--green-bg); }
+    .slot-busy { background:#FEF0EC; }
+    .slot-free-overlap { background:#4A7C59; opacity:.85; }
+    .slot-partial { background:#E8F5EE; }
 
-    .msg.mine { flex-direction: row-reverse; }
+    /* Legend */
+    .timetable-legend { display:flex; gap:1rem; margin-top:.75rem; flex-wrap:wrap; }
+    .legend-item { display:flex; align-items:center; gap:.4rem; font-size:.78rem; color:var(--mid); }
+    .legend-swatch { width:14px; height:14px; border-radius:3px; border:1px solid var(--border); flex-shrink:0; }
 
-    .msg-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--warm);
-      color: var(--clay);
-      font-size: .8rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      align-self: flex-end;
-    }
+    /* Windows list */
+    .windows-list { display:flex; flex-direction:column; gap:.6rem; margin-top:1rem; }
+    .window-item { display:flex; align-items:center; gap:.85rem; padding:.75rem 1rem; background:var(--green-bg); border:1px solid var(--green-bd); border-radius:10px; animation:fadeUp .3s ease both; }
+    .window-dot { width:10px; height:10px; border-radius:50%; background:var(--green); flex-shrink:0; }
+    .window-info { flex:1; }
+    .window-time { font-weight:600; font-size:.9rem; color:var(--charcoal); }
+    .window-dur { font-size:.78rem; color:var(--green); margin-top:1px; }
+    .window-empty { font-size:.88rem; color:var(--mid); font-style:italic; padding:.75rem 0; }
 
-    .msg.mine .msg-avatar { display: none; }
+    /* Best assignment display */
+    .assignment-list { margin-top:1rem; display:flex; flex-direction:column; gap:.5rem; }
+    .assignment-person { background:var(--cream); border-radius:10px; padding:.75rem 1rem; }
+    .assignment-name { font-weight:600; font-size:.88rem; margin-bottom:.4rem; }
+    .assignment-courses { display:flex; flex-wrap:wrap; gap:.3rem; }
+    .assignment-chip { font-size:.75rem; background:white; border:1px solid var(--border); border-radius:6px; padding:.15rem .5rem; font-family:'DM Sans',monospace; }
+    .assignment-chip.lec { border-color:#F5C6B5; background:#FEF0EC; color:var(--clay-dk); }
+    .assignment-chip.tut { border-color:var(--green-bd); background:var(--green-bg); color:var(--green); }
 
-    .msg-content {
-      display: flex;
-      flex-direction: column;
-      max-width: 75%;
-    }
-
-    .msg.mine .msg-content { align-items: flex-end; }
-    .msg.theirs .msg-content { align-items: flex-start; }
-
-    .msg-meta {
-      font-size: .75rem;
-      color: var(--mid);
-      margin-bottom: .25rem;
-      display: flex;
-      align-items: baseline;
-      gap: .4rem;
-    }
-
-    .msg-author { font-weight: 600; color: var(--charcoal); }
-
-    .msg-bubble {
-      padding: .65rem .9rem;
-      border-radius: 16px;
-      font-size: .95rem;
-      line-height: 1.4;
-      word-break: break-word;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-
-    .msg.mine .msg-bubble {
-      background: var(--clay);
-      color: white;
-      border-bottom-right-radius: 4px;
-    }
-
-    .msg.theirs .msg-bubble {
-      background: white;
-      color: var(--charcoal);
-      border: 1px solid var(--border);
-      border-bottom-left-radius: 4px;
-    }
-
-    .chat-input-bar {
-      display: flex;
-      gap: .5rem;
-      padding: .75rem 1rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .chat-input {
-      flex: 1;
-      padding: .6rem .9rem;
-      border: 1.5px solid var(--border);
-      border-radius: 99px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .9rem;
-      color: var(--charcoal);
-      background: var(--cream);
-      outline: none;
-      transition: border-color .15s, box-shadow .15s;
-    }
-
-    .chat-input:focus {
-      border-color: var(--clay);
-      box-shadow: 0 0 0 3px rgba(196,113,74,.1);
-      background: white;
-    }
-
-    .chat-send {
-      width: 38px; height: 38px;
-      flex-shrink: 0;
-      background: var(--clay);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .15s, transform .1s;
-    }
-
-    .chat-send:hover { background: var(--clay-dk); }
-    .chat-send:active { transform: scale(.92); }
-    .chat-send:disabled { opacity: .5; cursor: not-allowed; }
+    /* Score badge */
+    .score-badge { display:inline-flex; align-items:center; gap:.4rem; background:var(--charcoal); color:white; border-radius:8px; padding:.35rem .85rem; font-size:.82rem; font-weight:500; margin-bottom:1rem; }
 
     /* ── Toast ────────────────────────────────────── */
-    .toast {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(8px);
-      background: var(--charcoal);
-      color: white;
-      padding: .6rem 1.2rem;
-      border-radius: 999px;
-      font-size: .875rem;
-      font-weight: 500;
-      opacity: 0;
-      transition: opacity .2s, transform .2s;
-      pointer-events: none;
-      z-index: 999;
-      white-space: nowrap;
-    }
-
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%) translateY(8px); background:var(--charcoal); color:white; padding:.6rem 1.2rem; border-radius:999px; font-size:.875rem; font-weight:500; opacity:0; transition:opacity .2s,transform .2s; pointer-events:none; z-index:999; white-space:nowrap; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
     /* ── Animations ───────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadein { from{opacity:0} to{opacity:1} }
+    @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .spinner { width:14px; height:14px; border:2px solid rgba(255,255,255,.35); border-top-color:white; border-radius:50%; animation:spin .6s linear infinite; display:inline-block; vertical-align:middle; }
+    .spinner-sm { width:12px; height:12px; border:1.5px solid rgba(122,111,101,.35); border-top-color:var(--mid); border-radius:50%; animation:spin .6s linear infinite; display:inline-block; }
+    .spinner-dark { width:14px; height:14px; border:2px solid rgba(44,40,37,.2); border-top-color:var(--charcoal); border-radius:50%; animation:spin .6s linear infinite; display:inline-block; vertical-align:middle; }
+    @keyframes spin { to{transform:rotate(360deg)} }
 
-    .spinner {
-      width: 14px; height: 14px;
-      border: 2px solid rgba(255,255,255,.35);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin .6s linear infinite;
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .spinner-sm {
-      width: 12px; height: 12px;
-      border: 1.5px solid rgba(122,111,101,.35);
-      border-top-color: var(--mid);
-      border-radius: 50%;
-      animation: spin .6s linear infinite;
-      display: inline-block;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .section-divider { height:1px; background:var(--border); margin:1.25rem -1.5rem; }
   </style>
 </head>
 <body>
 
-<!-- ── Landing / Auth ─────────────────────────────────────────────────────── -->
+<!-- ── Landing ─────────────────────────────────────────────────────────────── -->
 <div id="landing">
   <div class="landing-inner">
     <div class="logo-mark">
-      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="9" cy="14" r="5" stroke="white" stroke-width="2"/>
-        <circle cx="19" cy="14" r="5" stroke="white" stroke-width="2"/>
-        <path d="M12 14a3 3 0 0 0 4 0" stroke="white" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+      <svg viewBox="0 0 28 28" fill="none"><circle cx="9" cy="14" r="5" stroke="white" stroke-width="2"/><circle cx="19" cy="14" r="5" stroke="white" stroke-width="2"/><path d="M12 14a3 3 0 0 0 4 0" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
     </div>
-
     <h1 class="wordmark">InSync</h1>
-    <p class="tagline">
-      You picked your degree. You picked your courses.<br/>
-      Now pick time for the people that matter.
-    </p>
-
+    <p class="tagline">You picked your degree. You picked your courses.<br/>Now pick time for the people that matter.</p>
     <div class="auth-tabs">
       <button class="auth-tab active" onclick="switchTab('login')">Sign in</button>
       <button class="auth-tab" onclick="switchTab('register')">Create account</button>
     </div>
-
     <div class="card">
       <div id="auth-error" class="error-msg" style="display:none"></div>
-
       <div id="login-form">
-        <div class="field">
-          <label>Email</label>
-          <input type="email" id="login-email" placeholder="you@student.unsw.edu.au" />
-        </div>
-        <div class="field">
-          <label>Password</label>
-          <input type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
-        </div>
+        <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="you@student.unsw.edu.au" /></div>
+        <div class="field"><label>Password</label><input type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" /></div>
         <button class="btn-primary" id="login-btn" onclick="doLogin()">Sign in</button>
       </div>
-
       <div id="register-form" style="display:none">
-        <div class="field">
-          <label>Display name</label>
-          <input type="text" id="reg-name" placeholder="How your friends will see you" />
-        </div>
-        <div class="field">
-          <label>Email</label>
-          <input type="email" id="reg-email" placeholder="you@student.unsw.edu.au" />
-        </div>
-        <div class="field">
-          <label>Password</label>
-          <input type="password" id="reg-password" placeholder="At least 6 characters" onkeydown="if(event.key==='Enter')doRegister()" />
-        </div>
+        <div class="field"><label>Display name</label><input type="text" id="reg-name" placeholder="How your friends will see you" /></div>
+        <div class="field"><label>Email</label><input type="email" id="reg-email" placeholder="you@student.unsw.edu.au" /></div>
+        <div class="field"><label>Password</label><input type="password" id="reg-password" placeholder="At least 6 characters" onkeydown="if(event.key==='Enter')doRegister()" /></div>
         <button class="btn-primary" id="register-btn" onclick="doRegister()">Create account</button>
       </div>
     </div>
@@ -1202,7 +312,6 @@
       <button class="btn-ghost" onclick="logout()">Sign out</button>
     </div>
   </nav>
-
   <main>
     <!-- Dashboard -->
     <div id="dashboard">
@@ -1210,106 +319,67 @@
         <h2>Your groups</h2>
         <p>Create a group or join one with an invite code to get started.</p>
       </div>
-
       <div class="groups-actions">
         <button class="btn-create" onclick="openCreateModal()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1v12M1 7h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
           Create group
         </button>
         <button class="btn-join" onclick="openJoinModal()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M5 7h6M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M3 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 7h6M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Join with code
         </button>
       </div>
-
       <div class="groups-grid" id="groups-grid"></div>
     </div>
 
     <!-- Group Detail -->
     <div id="group-detail">
       <button class="back-btn" onclick="showDashboard()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         All groups
       </button>
-
       <div class="detail-header">
         <div>
           <div class="detail-title" id="detail-name"></div>
-          <div style="margin-top:.4rem; display:flex; align-items:center; gap:.75rem;">
-            <span style="font-size:.85rem; color:var(--mid)" id="detail-member-count"></span>
+          <div style="margin-top:.4rem;display:flex;align-items:center;gap:.75rem;">
+            <span style="font-size:.85rem;color:var(--mid)" id="detail-member-count"></span>
             <span class="invite-chip" id="detail-invite" onclick="copyInviteCode()">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                <rect x="1" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
-                <path d="M3 3V2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-              </svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="1" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 3V2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
               <span id="detail-code"></span>
               <span class="copy-label">copy</span>
             </span>
           </div>
         </div>
-        <button class="btn-leave" id="leave-btn" onclick="openLeaveModal()" style="display:none">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M5 7h7M9 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7 2H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Leave group
-        </button>
-        <button class="btn-leave" id="delete-btn" onclick="openDeleteModal()" style="display:none">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M3 3.5h8M5.5 3.5v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1M4.5 3.5v8a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          Delete group
-        </button>
+        <div style="display:flex;gap:.5rem;flex-shrink:0;">
+          <button class="btn-leave" id="leave-btn" onclick="openLeaveModal()" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 7h7M9 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 2H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Leave
+          </button>
+          <button class="btn-leave" id="delete-btn" onclick="openDeleteModal()" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3.5h8M5.5 3.5v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1M4.5 3.5v8a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Delete
+          </button>
+        </div>
       </div>
 
-      <!-- ── Courses Card ─────────────────────────── -->
+      <!-- Courses Card -->
       <div class="courses-card">
         <div class="courses-card-top">
           <div>
             <div class="courses-card-label">Your courses</div>
             <div class="courses-card-sub">Add the UNSW courses you're enrolled in this term</div>
           </div>
-          <button class="btn-save-courses" id="save-courses-btn" onclick="saveCourses()" style="display:none">
-            Save
-          </button>
+          <button class="btn-save-courses" id="save-courses-btn" onclick="saveCourses()" style="display:none">Save</button>
         </div>
-
-        <!-- Search combobox -->
         <div class="course-search-wrap">
-          <svg class="course-search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.4"/>
-            <path d="M9.5 9.5l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-          <input
-            class="course-search-input"
-            id="course-search"
-            type="text"
-            placeholder="Type a course code to add… (e.g. COMP3900)"
-            autocomplete="off"
-            oninput="onCourseInput()"
-            onkeydown="onCourseKeydown(event)"
-            onblur="scheduleDdClose()"
-            onfocus="onCourseInput()"
-          />
-          <div class="course-search-loading" id="courses-loading" style="display:none">
-            <span class="spinner-sm"></span>
-          </div>
+          <svg class="course-search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 9.5l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <input class="course-search-input" id="course-search" type="text" placeholder="Type a course code… (e.g. COMP3900)" autocomplete="off" oninput="onCourseInput()" onkeydown="onCourseKeydown(event)" onblur="scheduleDdClose()" onfocus="onCourseInput()" />
+          <div class="course-search-loading" id="courses-loading" style="display:none"><span class="spinner-sm"></span></div>
           <div class="course-dropdown" id="course-dropdown"></div>
         </div>
-
-        <!-- Selected course chips -->
         <div class="course-chips" id="course-chips">
           <span class="no-courses-hint" id="no-courses-hint">No courses added yet</span>
         </div>
-
-        <!-- ── Readiness panel ──────────────────── -->
         <div class="readiness-divider"></div>
         <div class="readiness-section">
           <div class="readiness-top">
@@ -1317,42 +387,50 @@
             <span class="readiness-pill waiting" id="readiness-pill">0/0</span>
           </div>
           <div id="readiness-banner" class="readiness-banner is-waiting" style="display:none"></div>
-          <div class="readiness-list" id="readiness-list">
-            <div style="color:var(--mid);font-size:.85rem">Loading…</div>
+          <div class="readiness-list" id="readiness-list"><div style="color:var(--mid);font-size:.85rem">Loading…</div></div>
+        </div>
+      </div>
+
+      <!-- ── Sync Card (Algorithm) ─────────────────── -->
+      <div class="sync-card">
+        <div class="sync-card-top">
+          <div>
+            <div class="sync-card-label">Find windows</div>
+            <div class="sync-card-sub">Optimise everyone's timetable to maximise shared free time</div>
+          </div>
+          <button class="btn-find-windows" id="find-windows-btn" onclick="runAlgorithm()" disabled>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="1.4"/><path d="M5 7l2 2 2-3" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Find windows
+          </button>
+        </div>
+        <div id="sync-body">
+          <div class="sync-locked">
+            <div class="sync-locked-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="4" y="7" width="8" height="7" rx="2" stroke="var(--mid)" stroke-width="1.3"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" stroke="var(--mid)" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+            <p id="sync-locked-msg">At least 2 members need to add their courses before finding windows.</p>
           </div>
         </div>
       </div>
 
-      <!-- Members + Chat side by side -->
+      <!-- Members + Chat -->
       <div class="detail-columns">
         <div class="members-section">
           <h4>Members</h4>
           <div class="member-list" id="member-list"></div>
         </div>
-
         <div class="chat-section">
           <h4>Group chat</h4>
           <div class="chat-messages" id="chat-messages">
             <div class="chat-empty" id="chat-empty">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M4 8a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H12l-6 4V8Z" stroke="var(--border)" stroke-width="1.5"/>
-              </svg>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 8a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H12l-6 4V8Z" stroke="var(--border)" stroke-width="1.5"/></svg>
               No messages yet — say hello!
             </div>
           </div>
           <div class="chat-input-bar">
-            <input
-              class="chat-input"
-              id="chat-input"
-              type="text"
-              placeholder="Say something…"
-              maxlength="2000"
-              onkeydown="if(event.key==='Enter'&&!event.shiftKey)sendMessage()"
-            />
+            <input class="chat-input" id="chat-input" type="text" placeholder="Say something…" maxlength="2000" onkeydown="if(event.key==='Enter'&&!event.shiftKey)sendMessage()" />
             <button class="chat-send" id="chat-send-btn" onclick="sendMessage()" title="Send">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M14 8L2 2l3 6-3 6 12-6Z" fill="white"/>
-              </svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8L2 2l3 6-3 6 12-6Z" fill="white"/></svg>
             </button>
           </div>
         </div>
@@ -1363,757 +441,928 @@
 
 <!-- ── Modals ─────────────────────────────────────────────────────────────── -->
 <div id="modal-backdrop" class="modal-backdrop" style="display:none" onclick="closeModal(event)">
-
   <div id="modal-create" class="modal" style="display:none">
     <h3>New group</h3>
     <p>Give your friend group a name. You'll get an invite code to share.</p>
-    <div class="field">
-      <label>Group name</label>
-      <input type="text" id="create-name" placeholder="e.g. COMP3900 crew" maxlength="100"
-             onkeydown="if(event.key==='Enter')doCreate()" />
-    </div>
+    <div class="field"><label>Group name</label><input type="text" id="create-name" placeholder="e.g. COMP3900 crew" maxlength="100" onkeydown="if(event.key==='Enter')doCreate()" /></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeAllModals()">Cancel</button>
       <button class="btn-primary" style="flex:1" id="create-btn" onclick="doCreate()">Create</button>
     </div>
   </div>
-
   <div id="modal-join" class="modal" style="display:none">
     <h3>Join a group</h3>
     <p>Ask a friend for their 8-character invite code.</p>
-    <div class="field">
-      <label>Invite code</label>
-      <input type="text" id="join-code" placeholder="e.g. XK9P2MNQ" maxlength="8"
-             style="text-transform:uppercase; letter-spacing:.1em; font-size:1.1rem"
-             onkeydown="if(event.key==='Enter')doJoin()" />
-    </div>
+    <div class="field"><label>Invite code</label><input type="text" id="join-code" placeholder="e.g. XK9P2MNQ" maxlength="8" style="text-transform:uppercase;letter-spacing:.1em;font-size:1.1rem" onkeydown="if(event.key==='Enter')doJoin()" /></div>
     <div id="join-error" class="error-msg" style="display:none"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeAllModals()">Cancel</button>
       <button class="btn-primary" style="flex:1" id="join-btn" onclick="doJoin()">Join</button>
     </div>
   </div>
-
   <div id="modal-leave" class="modal" style="display:none">
     <h3>Leave group?</h3>
-    <p>You'll lose access to the group chat and won't see new activity. You can rejoin later with the invite code.</p>
+    <p>You'll lose access to the group chat. You can rejoin later with the invite code.</p>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeAllModals()">Stay</button>
       <button class="btn-danger" id="leave-confirm-btn" onclick="doLeave()">Leave group</button>
     </div>
   </div>
-
   <div id="modal-delete" class="modal" style="display:none">
     <h3>Delete group?</h3>
-    <p>This will permanently remove the group and all its messages. This cannot be undone.</p>
+    <p>This will permanently remove the group and all its messages.</p>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeAllModals()">Cancel</button>
       <button class="btn-danger" id="delete-confirm-btn" onclick="doDeleteGroup()">Delete group</button>
     </div>
   </div>
-
 </div>
 
 <div id="toast" class="toast"></div>
 
 <script>
-  const API       = 'http://localhost:8000';
-  const DEVSOC    = 'https://graphql.csesoc.app/v1/graphql';
+  /* ═══════════════════════════════════════════════════════════
+     CONFIG
+  ═══════════════════════════════════════════════════════════ */
+  const API    = 'http://localhost:8000';
+  const DEVSOC = 'https://graphql.csesoc.app/v1/graphql';
 
+  // Mon–Fri, 9:00–20:00, 30-min slots → 22 slots/day × 5 days = 110 slots
+  const DAYS       = ['Mon','Tue','Wed','Thu','Fri'];
+  const SLOT_START = 9 * 2;   // 9:00 in half-hours from midnight
+  const SLOT_END   = 20 * 2;  // 20:00
+  const SLOTS_PER_DAY = SLOT_END - SLOT_START; // 22
+
+  /* ═══════════════════════════════════════════════════════════
+     STATE
+  ═══════════════════════════════════════════════════════════ */
   let token       = localStorage.getItem('insync_token');
   let currentUser = JSON.parse(localStorage.getItem('insync_user') || 'null');
   let currentGroupId = null;
-
-  // ── Chat state ────────────────────────────────────
-  let chatPollInterval  = null;
-  let lastMessageTime   = null;
-
-  // ── Course state ──────────────────────────────────
-  let allCourseCodes    = [];   // fetched once from DevSoc
-  let coursesFetched    = false;
-  let myCourses         = new Set(); // live local state (may have unsaved changes)
-  let savedCourses      = new Set(); // last-saved state from backend
+  let chatPollInterval   = null;
+  let lastMessageTime    = null;
+  let allCourseCodes     = [];
+  let coursesFetched     = false;
+  let myCourses          = new Set();
+  let savedCourses       = new Set();
   let coursesInitialised = false;
-  let ddHighlight       = -1;   // dropdown keyboard highlight index
+  let ddHighlight        = -1;
   let coursePollInterval = null;
+  // Algorithm state
+  let algoRunning        = false;
+  let lastAlgoResult     = null;
+  let groupCoursesData   = null; // latest data from /groups/{id}/courses
 
-  // ── Boot ──────────────────────────────────────────
+  /* ═══════════════════════════════════════════════════════════
+     BOOT
+  ═══════════════════════════════════════════════════════════ */
   if (token && currentUser) showApp();
 
-  // ── Auth tab switch ───────────────────────────────
+  /* ═══════════════════════════════════════════════════════════
+     AUTH
+  ═══════════════════════════════════════════════════════════ */
   function switchTab(tab) {
-    document.querySelectorAll('.auth-tab').forEach((t, i) =>
-      t.classList.toggle('active', (tab === 'login') === (i === 0)));
-    document.getElementById('login-form').style.display  = tab === 'login'    ? '' : 'none';
-    document.getElementById('register-form').style.display = tab === 'register' ? '' : 'none';
-    document.getElementById('auth-error').style.display  = 'none';
+    document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',(tab==='login')===(i===0)));
+    document.getElementById('login-form').style.display    = tab==='login'    ? '' : 'none';
+    document.getElementById('register-form').style.display = tab==='register' ? '' : 'none';
+    document.getElementById('auth-error').style.display    = 'none';
   }
 
-  // ── API helper ────────────────────────────────────
-  async function api(path, opts = {}) {
-    const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+  async function api(path, opts={}) {
+    const headers = {'Content-Type':'application/json',...(opts.headers||{})};
     if (token) headers['Authorization'] = `Bearer ${token}`;
-    const res  = await fetch(API + path, { ...opts, headers });
-    if (res.status === 204) return null;
+    const res  = await fetch(API+path, {...opts, headers});
+    if (res.status===204) return null;
     const data = await res.json();
-    if (!res.ok) throw new Error(data.detail || 'Something went wrong');
+    if (!res.ok) throw new Error(data.detail||'Something went wrong');
     return data;
   }
 
-  // ── Auth ──────────────────────────────────────────
   async function doLogin() {
-    const email = document.getElementById('login-email').value.trim();
-    const pass  = document.getElementById('login-password').value;
-    const btn   = document.getElementById('login-btn');
-    if (!email || !pass) return showError('auth-error', 'Please fill in all fields');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>';
+    const email=document.getElementById('login-email').value.trim();
+    const pass =document.getElementById('login-password').value;
+    const btn  =document.getElementById('login-btn');
+    if (!email||!pass) return showError('auth-error','Please fill in all fields');
+    btn.disabled=true; btn.innerHTML='<span class="spinner"></span>';
     try {
-      const form = new URLSearchParams({ username: email, password: pass });
-      const res  = await fetch(API + '/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: form,
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || 'Login failed');
+      const form=new URLSearchParams({username:email,password:pass});
+      const res =await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:form});
+      const data=await res.json();
+      if (!res.ok) throw new Error(data.detail||'Login failed');
       saveAuth(data);
-    } catch (e) {
-      showError('auth-error', e.message);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Sign in';
-    }
+    } catch(e){ showError('auth-error',e.message); }
+    finally { btn.disabled=false; btn.textContent='Sign in'; }
   }
 
   async function doRegister() {
-    const name  = document.getElementById('reg-name').value.trim();
-    const email = document.getElementById('reg-email').value.trim();
-    const pass  = document.getElementById('reg-password').value;
-    const btn   = document.getElementById('register-btn');
-    if (!name || !email || !pass) return showError('auth-error', 'Please fill in all fields');
-    if (pass.length < 6) return showError('auth-error', 'Password must be at least 6 characters');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>';
+    const name =document.getElementById('reg-name').value.trim();
+    const email=document.getElementById('reg-email').value.trim();
+    const pass =document.getElementById('reg-password').value;
+    const btn  =document.getElementById('register-btn');
+    if (!name||!email||!pass) return showError('auth-error','Please fill in all fields');
+    if (pass.length<6) return showError('auth-error','Password must be at least 6 characters');
+    btn.disabled=true; btn.innerHTML='<span class="spinner"></span>';
     try {
-      const data = await api('/auth/register', {
-        method: 'POST',
-        body: JSON.stringify({ display_name: name, email, password: pass }),
-      });
+      const data=await api('/auth/register',{method:'POST',body:JSON.stringify({display_name:name,email,password:pass})});
       saveAuth(data);
-    } catch (e) {
-      showError('auth-error', e.message);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Create account';
-    }
+    } catch(e){ showError('auth-error',e.message); }
+    finally { btn.disabled=false; btn.textContent='Create account'; }
   }
 
   function saveAuth(data) {
-    token       = data.access_token;
-    currentUser = data.user;
-    localStorage.setItem('insync_token', token);
-    localStorage.setItem('insync_user', JSON.stringify(currentUser));
+    token=data.access_token; currentUser=data.user;
+    localStorage.setItem('insync_token',token);
+    localStorage.setItem('insync_user',JSON.stringify(currentUser));
     showApp();
   }
 
   function logout() {
-    stopPolling();
-    token       = null;
-    currentUser = null;
-    localStorage.removeItem('insync_token');
-    localStorage.removeItem('insync_user');
-    document.getElementById('app').style.display    = 'none';
-    document.getElementById('landing').style.display = 'flex';
+    stopPolling(); token=null; currentUser=null;
+    localStorage.removeItem('insync_token'); localStorage.removeItem('insync_user');
+    document.getElementById('app').style.display='none';
+    document.getElementById('landing').style.display='flex';
   }
 
-  // ── App ───────────────────────────────────────────
+  /* ═══════════════════════════════════════════════════════════
+     APP / DASHBOARD
+  ═══════════════════════════════════════════════════════════ */
   function showApp() {
-    document.getElementById('landing').style.display = 'none';
-    document.getElementById('app').style.display     = 'flex';
-    const initials = currentUser.display_name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-    document.getElementById('nav-avatar').textContent = initials;
-    document.getElementById('nav-name').textContent   = currentUser.display_name;
+    document.getElementById('landing').style.display='none';
+    document.getElementById('app').style.display='flex';
+    const initials=currentUser.display_name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('nav-avatar').textContent=initials;
+    document.getElementById('nav-name').textContent=currentUser.display_name;
     loadGroups();
   }
 
   async function loadGroups() {
-    const grid = document.getElementById('groups-grid');
-    grid.innerHTML = '<div style="color:var(--mid);font-size:.9rem;padding:1rem 0">Loading…</div>';
-    try {
-      const groups = await api('/groups/me');
-      renderGroups(groups);
-    } catch (e) {
-      grid.innerHTML = `<div class="error-msg">${e.message}</div>`;
-    }
+    const grid=document.getElementById('groups-grid');
+    grid.innerHTML='<div style="color:var(--mid);font-size:.9rem;padding:1rem 0">Loading…</div>';
+    try { renderGroups(await api('/groups/me')); }
+    catch(e){ grid.innerHTML=`<div class="error-msg">${e.message}</div>`; }
   }
 
   function renderGroups(groups) {
-    const grid = document.getElementById('groups-grid');
+    const grid=document.getElementById('groups-grid');
     if (!groups.length) {
-      grid.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="9" cy="14" r="5" stroke="var(--clay)" stroke-width="1.5"/>
-              <circle cx="19" cy="14" r="5" stroke="var(--clay)" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <h3>No groups yet</h3>
-          <p>Create one or join with a code from a friend.</p>
-        </div>`;
+      grid.innerHTML=`<div class="empty-state"><div class="empty-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="9" cy="14" r="5" stroke="var(--clay)" stroke-width="1.5"/><circle cx="19" cy="14" r="5" stroke="var(--clay)" stroke-width="1.5"/></svg></div><h3>No groups yet</h3><p>Create one or join with a code from a friend.</p></div>`;
       return;
     }
-
-    grid.innerHTML = groups.map((g, i) => `
-      <div class="group-card" style="animation-delay:${i * 0.05}s" onclick="openGroup('${g.id}')">
+    grid.innerHTML=groups.map((g,i)=>`
+      <div class="group-card" style="animation-delay:${i*.05}s" onclick="openGroup('${g.id}')">
         <div class="group-card-name">${esc(g.name)}</div>
-        <div class="group-card-meta">
-          <span>${g.member_count} member${g.member_count !== 1 ? 's' : ''}</span>
-        </div>
+        <div class="group-card-meta"><span>${g.member_count} member${g.member_count!==1?'s':''}</span></div>
         <span class="invite-chip" onclick="event.stopPropagation();copyCode('${g.invite_code}')">
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-            <rect x="1" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M3 3V2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
-          ${g.invite_code}
-          <span class="copy-label">copy</span>
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="1" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 3V2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          ${g.invite_code}<span class="copy-label">copy</span>
         </span>
       </div>`).join('');
   }
 
-  // ── Group Detail ──────────────────────────────────
+  /* ═══════════════════════════════════════════════════════════
+     GROUP DETAIL
+  ═══════════════════════════════════════════════════════════ */
   async function openGroup(id) {
     stopPolling();
-    currentGroupId      = id;
-    lastMessageTime     = null;
-    coursesInitialised  = false;
-    myCourses           = new Set();
-    savedCourses        = new Set();
-
-    document.getElementById('dashboard').style.display    = 'none';
-    document.getElementById('group-detail').style.display = 'block';
-    document.getElementById('member-list').innerHTML      = '<div style="color:var(--mid);font-size:.9rem">Loading…</div>';
-    document.getElementById('readiness-list').innerHTML   = '<div style="color:var(--mid);font-size:.85rem">Loading…</div>';
-    document.getElementById('save-courses-btn').style.display = 'none';
-
-    // Clear chat
-    const chatEl = document.getElementById('chat-messages');
-    chatEl.querySelectorAll('.msg').forEach(el => el.remove());
-    document.getElementById('chat-empty').style.display = 'flex';
-
-    // Reset course chips
+    currentGroupId=id; lastMessageTime=null; coursesInitialised=false;
+    myCourses=new Set(); savedCourses=new Set(); lastAlgoResult=null; groupCoursesData=null;
+    document.getElementById('dashboard').style.display='none';
+    document.getElementById('group-detail').style.display='block';
+    document.getElementById('member-list').innerHTML='<div style="color:var(--mid);font-size:.9rem">Loading…</div>';
+    document.getElementById('readiness-list').innerHTML='<div style="color:var(--mid);font-size:.85rem">Loading…</div>';
+    document.getElementById('save-courses-btn').style.display='none';
+    document.getElementById('find-windows-btn').disabled=true;
+    resetSyncBody();
+    const chatEl=document.getElementById('chat-messages');
+    chatEl.querySelectorAll('.msg').forEach(el=>el.remove());
+    document.getElementById('chat-empty').style.display='flex';
     renderCourseChips();
-
     try {
-      const g = await api(`/groups/${id}`);
-      document.getElementById('detail-name').textContent         = g.name;
-      document.getElementById('detail-member-count').textContent = `${g.member_count} member${g.member_count !== 1 ? 's' : ''}`;
-      document.getElementById('detail-code').textContent         = g.invite_code;
-
-      document.getElementById('member-list').innerHTML = g.members.map(m => `
+      const g=await api(`/groups/${id}`);
+      document.getElementById('detail-name').textContent=g.name;
+      document.getElementById('detail-member-count').textContent=`${g.member_count} member${g.member_count!==1?'s':''}`;
+      document.getElementById('detail-code').textContent=g.invite_code;
+      document.getElementById('member-list').innerHTML=g.members.map(m=>`
         <div class="member-row">
           <div class="avatar">${m.display_name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}</div>
-          <div class="member-info">
-            <div class="member-name">${esc(m.display_name)}</div>
-            <div class="member-email">${esc(m.email)}</div>
-          </div>
-          ${m.id === g.owner_id ? '<span class="owner-badge">owner</span>' : ''}
+          <div class="member-info"><div class="member-name">${esc(m.display_name)}</div><div class="member-email">${esc(m.email)}</div></div>
+          ${m.id===g.owner_id?'<span class="owner-badge">owner</span>':''}
         </div>`).join('');
-
-      const leaveBtn  = document.getElementById('leave-btn');
-      const deleteBtn = document.getElementById('delete-btn');
-      if (currentUser.id === g.owner_id) {
-        leaveBtn.style.display  = 'none';
-        deleteBtn.style.display = 'inline-flex';
-      } else {
-        leaveBtn.style.display  = 'inline-flex';
-        deleteBtn.style.display = 'none';
-      }
-
-      // Start chat
-      await loadMessages();
-      startChatPoll();
-
-      // Fetch courses in parallel (non-blocking for DevSoc)
-      fetchAllCourseCodes(); // fire-and-forget
-      await loadGroupCourses();
-      startCoursePoll();
-
-    } catch (e) {
-      document.getElementById('member-list').innerHTML = `<div class="error-msg">${e.message}</div>`;
+      const leaveBtn=document.getElementById('leave-btn');
+      const deleteBtn=document.getElementById('delete-btn');
+      if (currentUser.id===g.owner_id){ leaveBtn.style.display='none'; deleteBtn.style.display='inline-flex'; }
+      else { leaveBtn.style.display='inline-flex'; deleteBtn.style.display='none'; }
+      await loadMessages(); startChatPoll();
+      fetchAllCourseCodes();
+      await loadGroupCourses(); startCoursePoll();
+    } catch(e){
+      document.getElementById('member-list').innerHTML=`<div class="error-msg">${e.message}</div>`;
     }
   }
 
   function showDashboard() {
     stopPolling();
-    document.getElementById('group-detail').style.display = 'none';
-    document.getElementById('dashboard').style.display    = 'block';
+    document.getElementById('group-detail').style.display='none';
+    document.getElementById('dashboard').style.display='block';
     loadGroups();
   }
 
-  // ── Polling control ───────────────────────────────
-  function startChatPoll()   { chatPollInterval   = setInterval(loadMessages,     3000); }
-  function startCoursePoll() { coursePollInterval = setInterval(loadGroupCourses, 10000); }
-
+  function startChatPoll()   { chatPollInterval=setInterval(loadMessages,3000); }
+  function startCoursePoll() { coursePollInterval=setInterval(loadGroupCourses,10000); }
   function stopPolling() {
-    if (chatPollInterval)   { clearInterval(chatPollInterval);   chatPollInterval   = null; }
-    if (coursePollInterval) { clearInterval(coursePollInterval); coursePollInterval = null; }
+    if (chatPollInterval)   { clearInterval(chatPollInterval);   chatPollInterval=null; }
+    if (coursePollInterval) { clearInterval(coursePollInterval); coursePollInterval=null; }
   }
 
-  // ── Chat ──────────────────────────────────────────
+  /* ═══════════════════════════════════════════════════════════
+     CHAT
+  ═══════════════════════════════════════════════════════════ */
   async function loadMessages() {
     try {
-      const messages = await api(`/groups/${currentGroupId}/messages?limit=50`);
-      if (!messages || messages.length === 0) return;
-
-      const chatEl  = document.getElementById('chat-messages');
-      const emptyEl = document.getElementById('chat-empty');
-      emptyEl.style.display = 'none';
-
-      if (!lastMessageTime) {
-        chatEl.querySelectorAll('.msg').forEach(el => el.remove());
-        messages.forEach(m => appendMessage(m, false));
-        scrollToBottom();
-      } else {
-        const newMessages = messages.filter(m => m.created_at > lastMessageTime);
-        newMessages.forEach(m => appendMessage(m, true));
-      }
-
-      if (messages.length > 0) lastMessageTime = messages[messages.length - 1].created_at;
-    } catch (e) {
-      console.warn('Chat poll error:', e.message);
-    }
+      const messages=await api(`/groups/${currentGroupId}/messages?limit=50`);
+      if (!messages||!messages.length) return;
+      const chatEl=document.getElementById('chat-messages');
+      document.getElementById('chat-empty').style.display='none';
+      if (!lastMessageTime){ chatEl.querySelectorAll('.msg').forEach(el=>el.remove()); messages.forEach(m=>appendMessage(m,false)); scrollToBottom(); }
+      else { messages.filter(m=>m.created_at>lastMessageTime).forEach(m=>appendMessage(m,true)); }
+      lastMessageTime=messages[messages.length-1].created_at;
+    } catch(e){ console.warn('Chat poll:',e.message); }
   }
 
-  function appendMessage(msg, scroll) {
-    const chatEl = document.getElementById('chat-messages');
-    const isMine = msg.user_id === currentUser.id;
-    const time   = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const initials = (msg.display_name || '?').split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-
-    const div = document.createElement('div');
-    div.className = `msg ${isMine ? 'mine' : 'theirs'}`;
-    div.innerHTML = `
-      <div class="msg-avatar">${initials}</div>
-      <div class="msg-content">
-        <div class="msg-meta">
-          ${isMine ? '' : `<span class="msg-author">${esc(msg.display_name)}</span>`}
-          <span>${time}</span>
-        </div>
-        <div class="msg-bubble">${esc(msg.content)}</div>
-      </div>`;
+  function appendMessage(msg,scroll) {
+    const chatEl=document.getElementById('chat-messages');
+    const isMine=msg.user_id===currentUser.id;
+    const time=new Date(msg.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    const initials=(msg.display_name||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const div=document.createElement('div');
+    div.className=`msg ${isMine?'mine':'theirs'}`;
+    div.innerHTML=`<div class="msg-avatar">${initials}</div><div class="msg-content"><div class="msg-meta">${isMine?'':`<span class="msg-author">${esc(msg.display_name)}</span>`}<span>${time}</span></div><div class="msg-bubble">${esc(msg.content)}</div></div>`;
     chatEl.appendChild(div);
     if (scroll) scrollToBottom();
   }
 
-  function scrollToBottom() {
-    const chatEl = document.getElementById('chat-messages');
-    chatEl.scrollTop = chatEl.scrollHeight;
-  }
+  function scrollToBottom() { const c=document.getElementById('chat-messages'); c.scrollTop=c.scrollHeight; }
 
   async function sendMessage() {
-    const input   = document.getElementById('chat-input');
-    const content = input.value.trim();
+    const input=document.getElementById('chat-input');
+    const content=input.value.trim();
     if (!content) return;
-
-    const sendBtn = document.getElementById('chat-send-btn');
-    sendBtn.disabled = true;
-    input.value = '';
-
+    const sendBtn=document.getElementById('chat-send-btn');
+    sendBtn.disabled=true; input.value='';
     try {
-      const msg = await api(`/groups/${currentGroupId}/messages`, {
-        method: 'POST',
-        body: JSON.stringify({ content }),
-      });
-      document.getElementById('chat-empty').style.display = 'none';
-      appendMessage(msg, true);
-      lastMessageTime = msg.created_at;
-    } catch (e) {
-      input.value = content;
-      showToast('Failed to send: ' + e.message);
-    } finally {
-      sendBtn.disabled = false;
-      input.focus();
-    }
+      const msg=await api(`/groups/${currentGroupId}/messages`,{method:'POST',body:JSON.stringify({content})});
+      document.getElementById('chat-empty').style.display='none';
+      appendMessage(msg,true); lastMessageTime=msg.created_at;
+    } catch(e){ input.value=content; showToast('Failed to send: '+e.message); }
+    finally { sendBtn.disabled=false; input.focus(); }
   }
 
-  // ── Course: DevSoc fetch ──────────────────────────
+  /* ═══════════════════════════════════════════════════════════
+     COURSES — DevSoc fetch
+  ═══════════════════════════════════════════════════════════ */
   async function fetchAllCourseCodes() {
     if (coursesFetched) return;
-    document.getElementById('courses-loading').style.display = '';
+    document.getElementById('courses-loading').style.display='';
     try {
-      const res  = await fetch(DEVSOC, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: '{ courses { course_code } }' }),
-      });
-      const json = await res.json();
-      allCourseCodes = [...new Set(json.data.courses.map(c => c.course_code))].sort();
-      coursesFetched = true;
-    } catch (e) {
-      console.warn('DevSoc fetch failed:', e);
-    } finally {
-      document.getElementById('courses-loading').style.display = 'none';
-    }
+      const res=await fetch(DEVSOC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:'{ courses { course_code } }'})});
+      const json=await res.json();
+      allCourseCodes=[...new Set(json.data.courses.map(c=>c.course_code))].sort();
+      coursesFetched=true;
+    } catch(e){ console.warn('DevSoc fetch failed:',e); }
+    finally { document.getElementById('courses-loading').style.display='none'; }
   }
 
-  // ── Course: dropdown combobox ─────────────────────
+  /* ═══════════════════════════════════════════════════════════
+     COURSES — Combobox
+  ═══════════════════════════════════════════════════════════ */
   function onCourseInput() {
-    const val = document.getElementById('course-search').value.trim().toUpperCase();
-    const dd  = document.getElementById('course-dropdown');
-    ddHighlight = -1;
-
-    if (val.length < 2) { dd.style.display = 'none'; return; }
-
-    // Starts-with first, then contains
-    const starts   = allCourseCodes.filter(c => c.startsWith(val) && !myCourses.has(c));
-    const contains = allCourseCodes.filter(c => !c.startsWith(val) && c.includes(val) && !myCourses.has(c));
-    const results  = [...starts, ...contains].slice(0, 8);
-
-    if (!results.length) {
-      dd.innerHTML    = `<div class="course-dropdown-empty">No matches for "${esc(val)}"</div>`;
-      dd.style.display = 'block';
-      return;
-    }
-
-    dd.innerHTML = results.map((code, i) => {
-      const idx = code.indexOf(val);
-      const before = esc(code.slice(0, idx));
-      const match  = esc(code.slice(idx, idx + val.length));
-      const after  = esc(code.slice(idx + val.length));
-      return `<div class="course-dropdown-item" data-code="${esc(code)}" data-idx="${i}"
-                   onmousedown="addCourse('${esc(code)}')"
-                   onmouseover="setDdHighlight(${i})">
-                ${before}<span class="match">${match}</span>${after}
-              </div>`;
+    const val=document.getElementById('course-search').value.trim().toUpperCase();
+    const dd =document.getElementById('course-dropdown');
+    ddHighlight=-1;
+    if (val.length<2){ dd.style.display='none'; return; }
+    const starts  =allCourseCodes.filter(c=>c.startsWith(val)&&!myCourses.has(c));
+    const contains=allCourseCodes.filter(c=>!c.startsWith(val)&&c.includes(val)&&!myCourses.has(c));
+    const results=[...starts,...contains].slice(0,8);
+    if (!results.length){ dd.innerHTML=`<div class="course-dropdown-empty">No matches for "${esc(val)}"</div>`; dd.style.display='block'; return; }
+    dd.innerHTML=results.map((code,i)=>{
+      const idx=code.indexOf(val);
+      return `<div class="course-dropdown-item" data-code="${esc(code)}" data-idx="${i}" onmousedown="addCourse('${esc(code)}')" onmouseover="setDdHighlight(${i})">${esc(code.slice(0,idx))}<span class="match">${esc(code.slice(idx,idx+val.length))}</span>${esc(code.slice(idx+val.length))}</div>`;
     }).join('');
-    dd.style.display = 'block';
+    dd.style.display='block';
   }
 
   function onCourseKeydown(e) {
-    const dd    = document.getElementById('course-dropdown');
-    const items = dd.querySelectorAll('.course-dropdown-item');
+    const dd=document.getElementById('course-dropdown');
+    const items=dd.querySelectorAll('.course-dropdown-item');
     if (!items.length) return;
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setDdHighlight(Math.min(ddHighlight + 1, items.length - 1));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setDdHighlight(Math.max(ddHighlight - 1, 0));
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      if (ddHighlight >= 0 && items[ddHighlight]) {
-        const code = items[ddHighlight].dataset.code;
-        if (code) addCourse(code);
-      }
-    } else if (e.key === 'Escape') {
-      dd.style.display = 'none';
-    }
+    if (e.key==='ArrowDown'){ e.preventDefault(); setDdHighlight(Math.min(ddHighlight+1,items.length-1)); }
+    else if (e.key==='ArrowUp'){ e.preventDefault(); setDdHighlight(Math.max(ddHighlight-1,0)); }
+    else if (e.key==='Enter'){ e.preventDefault(); if (ddHighlight>=0&&items[ddHighlight]){ addCourse(items[ddHighlight].dataset.code); } }
+    else if (e.key==='Escape'){ dd.style.display='none'; }
   }
 
-  function setDdHighlight(idx) {
-    ddHighlight = idx;
-    document.querySelectorAll('.course-dropdown-item').forEach((el, i) =>
-      el.classList.toggle('hi', i === idx));
-  }
+  function setDdHighlight(idx){ ddHighlight=idx; document.querySelectorAll('.course-dropdown-item').forEach((el,i)=>el.classList.toggle('hi',i===idx)); }
+  function scheduleDdClose(){ setTimeout(()=>{ document.getElementById('course-dropdown').style.display='none'; },160); }
 
-  function scheduleDdClose() {
-    // Delay so mousedown on a dropdown item fires first
-    setTimeout(() => {
-      document.getElementById('course-dropdown').style.display = 'none';
-    }, 160);
-  }
-
-  // ── Course: add / remove ──────────────────────────
-  function addCourse(code) {
+  function addCourse(code){
     myCourses.add(code);
-    document.getElementById('course-search').value = '';
-    document.getElementById('course-dropdown').style.display = 'none';
-    ddHighlight = -1;
-    renderCourseChips();
+    document.getElementById('course-search').value='';
+    document.getElementById('course-dropdown').style.display='none';
+    ddHighlight=-1; renderCourseChips();
   }
-
-  function removeCourse(code) {
-    myCourses.delete(code);
-    renderCourseChips();
-  }
-
-  function setsEqual(a, b) {
-    if (a.size !== b.size) return false;
-    for (const x of a) if (!b.has(x)) return false;
-    return true;
-  }
+  function removeCourse(code){ myCourses.delete(code); renderCourseChips(); }
+  function setsEqual(a,b){ if(a.size!==b.size) return false; for(const x of a) if(!b.has(x)) return false; return true; }
 
   function renderCourseChips() {
-    const container = document.getElementById('course-chips');
-    const hint      = document.getElementById('no-courses-hint');
-    const saveBtn   = document.getElementById('save-courses-btn');
-
-    // Remove existing chips (leave the hint span in place)
-    container.querySelectorAll('.course-chip').forEach(el => el.remove());
-
-    if (myCourses.size === 0) {
-      hint.style.display = '';
-    } else {
-      hint.style.display = 'none';
-      [...myCourses].sort().forEach(code => {
-        const chip = document.createElement('span');
-        chip.className   = 'course-chip';
-        chip.innerHTML   = `${esc(code)}<button class="chip-remove" onmousedown="removeCourse('${esc(code)}')" title="Remove">×</button>`;
-        container.insertBefore(chip, hint);
+    const container=document.getElementById('course-chips');
+    const hint=document.getElementById('no-courses-hint');
+    const saveBtn=document.getElementById('save-courses-btn');
+    container.querySelectorAll('.course-chip').forEach(el=>el.remove());
+    if (myCourses.size===0){ hint.style.display=''; }
+    else {
+      hint.style.display='none';
+      [...myCourses].sort().forEach(code=>{
+        const chip=document.createElement('span');
+        chip.className='course-chip';
+        chip.innerHTML=`${esc(code)}<button class="chip-remove" onmousedown="removeCourse('${esc(code)}')" title="Remove">×</button>`;
+        container.insertBefore(chip,hint);
       });
     }
-
-    // Show Save button only when there are unsaved changes
-    if (saveBtn) saveBtn.style.display = setsEqual(myCourses, savedCourses) ? 'none' : '';
+    if (saveBtn) saveBtn.style.display=setsEqual(myCourses,savedCourses)?'none':'';
   }
 
-  // ── Course: save to backend ───────────────────────
   async function saveCourses() {
-    const btn = document.getElementById('save-courses-btn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>';
+    const btn=document.getElementById('save-courses-btn');
+    btn.disabled=true; btn.innerHTML='<span class="spinner"></span>';
     try {
-      await api(`/groups/${currentGroupId}/my-courses`, {
-        method: 'PUT',
-        body: JSON.stringify({ course_codes: [...myCourses] }),
-      });
-      savedCourses = new Set(myCourses);
-      renderCourseChips();
-      showToast('Courses saved!');
-      await loadGroupCourses(); // refresh readiness immediately
-    } catch (e) {
-      showToast('Failed to save: ' + e.message);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Save';
-    }
+      await api(`/groups/${currentGroupId}/my-courses`,{method:'PUT',body:JSON.stringify({course_codes:[...myCourses]})});
+      savedCourses=new Set(myCourses); renderCourseChips(); showToast('Courses saved!');
+      await loadGroupCourses();
+    } catch(e){ showToast('Failed to save: '+e.message); }
+    finally { btn.disabled=false; btn.textContent='Save'; }
   }
 
-  // ── Course: load group readiness ──────────────────
   async function loadGroupCourses() {
     try {
-      const data = await api(`/groups/${currentGroupId}/courses`);
+      const data=await api(`/groups/${currentGroupId}/courses`);
+      groupCoursesData=data;
       renderReadiness(data);
-
-      // On first load, hydrate myCourses from saved state
-      if (!coursesInitialised) {
-        const me = data.members.find(m => String(m.user_id) === String(currentUser.id));
-        if (me && me.course_codes.length > 0) {
-          savedCourses = new Set(me.course_codes);
-          myCourses    = new Set(savedCourses);
-          renderCourseChips();
-        }
-        coursesInitialised = true;
+      updateFindWindowsButton(data);
+      if (!coursesInitialised){
+        const me=data.members.find(m=>String(m.user_id)===String(currentUser.id));
+        if (me&&me.course_codes.length>0){ savedCourses=new Set(me.course_codes); myCourses=new Set(savedCourses); renderCourseChips(); }
+        coursesInitialised=true;
       }
-    } catch (e) {
-      console.warn('Group courses fetch error:', e);
+    } catch(e){ console.warn('Group courses fetch error:',e); }
+  }
+
+  function updateFindWindowsButton(data) {
+    const btn=document.getElementById('find-windows-btn');
+    const locked=document.getElementById('sync-locked-msg');
+    if (data.is_ready){
+      btn.disabled=false;
+      if (locked) locked.textContent='';
+    } else {
+      btn.disabled=true;
+      const needed=2-data.ready_count;
+      if (locked) locked.textContent=needed>0
+        ? `${needed} more member${needed>1?'s':''} need to add their courses before finding windows.`
+        : 'At least 2 members need courses before finding windows.';
     }
   }
 
   function renderReadiness(data) {
-    const { members, ready_count, total_count, is_ready } = data;
-
-    // Pill
-    const pill = document.getElementById('readiness-pill');
-    pill.textContent  = `${ready_count}/${total_count}`;
-    pill.className    = `readiness-pill ${is_ready ? 'ready' : 'waiting'}`;
-
-    // Banner
-    const banner = document.getElementById('readiness-banner');
-    if (total_count < 2) {
-      banner.style.display = 'none';
-    } else {
-      banner.style.display = '';
-      if (is_ready) {
-        banner.className  = 'readiness-banner is-ready';
-        banner.innerHTML  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          ${ready_count} member${ready_count !== 1 ? 's' : ''} synced — ready to find your windows!`;
+    const {members,ready_count,total_count,is_ready}=data;
+    const pill=document.getElementById('readiness-pill');
+    pill.textContent=`${ready_count}/${total_count}`;
+    pill.className=`readiness-pill ${is_ready?'ready':'waiting'}`;
+    const banner=document.getElementById('readiness-banner');
+    if (total_count<2){ banner.style.display='none'; }
+    else {
+      banner.style.display='';
+      if (is_ready){
+        banner.className='readiness-banner is-ready';
+        banner.innerHTML=`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> ${ready_count} member${ready_count!==1?'s':''} synced — ready to find your windows!`;
       } else {
-        const needed = 2 - ready_count;
-        banner.className = 'readiness-banner is-waiting';
-        banner.innerHTML = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="var(--mid)" stroke-width="1.4"/><path d="M7 4v3l2 1.5" stroke="var(--mid)" stroke-width="1.4" stroke-linecap="round"/></svg>
-          Waiting for ${needed > 0 ? needed + ' more member' + (needed > 1 ? 's' : '') : 'everyone'} to add their courses`;
+        const needed=2-ready_count;
+        banner.className='readiness-banner is-waiting';
+        banner.innerHTML=`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="var(--mid)" stroke-width="1.4"/><path d="M7 4v3l2 1.5" stroke="var(--mid)" stroke-width="1.4" stroke-linecap="round"/></svg> Waiting for ${needed>0?needed+' more member'+(needed>1?'s':''):'everyone'} to add their courses`;
       }
     }
-
-    // Member rows
-    const list = document.getElementById('readiness-list');
-    list.innerHTML = members.map(m => {
-      const hasCourses = m.course_codes.length > 0;
-      const initials   = m.display_name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-      const coursesText = hasCourses
-        ? m.course_codes.join(', ')
-        : 'No courses added yet';
-
-      return `
-        <div class="readiness-row">
-          <div class="readiness-av ${hasCourses ? 'done' : ''}">${initials}</div>
-          <div class="readiness-info">
-            <span class="readiness-name">${esc(m.display_name)}</span>
-            <span class="readiness-courses-text ${hasCourses ? 'has' : 'none'}">${esc(coursesText)}</span>
-          </div>
-          <div class="readiness-check-icon ${hasCourses ? 'done' : 'pending'}">
-            ${hasCourses
-              ? `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-              : ''}
-          </div>
-        </div>`;
+    const list=document.getElementById('readiness-list');
+    list.innerHTML=members.map(m=>{
+      const hasCourses=m.course_codes.length>0;
+      const initials=m.display_name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+      return `<div class="readiness-row">
+        <div class="readiness-av ${hasCourses?'done':''}">${initials}</div>
+        <div class="readiness-info">
+          <span class="readiness-name">${esc(m.display_name)}</span>
+          <span class="readiness-courses-text ${hasCourses?'has':'none'}">${hasCourses?esc(m.course_codes.join(', ')):'No courses added yet'}</span>
+        </div>
+        <div class="readiness-check-icon ${hasCourses?'done':'pending'}">
+          ${hasCourses?`<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`:''}
+        </div>
+      </div>`;
     }).join('');
   }
 
-  // ── Leave Group ───────────────────────────────────
+  /* ═══════════════════════════════════════════════════════════
+     ALGORITHM — DevSoc class fetching
+  ═══════════════════════════════════════════════════════════ */
+
+  /** Parse "10:00 - 11:00" → [startSlot, endSlot] in half-hour units from midnight */
+  function parseTime(timeStr) {
+    const [startStr, endStr] = timeStr.split(' - ');
+    const parseHalf = s => {
+      const [h, m] = s.trim().split(':').map(Number);
+      return h * 2 + (m >= 30 ? 1 : 0);
+    };
+    return [parseHalf(startStr), parseHalf(endStr)];
+  }
+
+  /** "Mon" → 0, "Tue" → 1, … "Fri" → 4; returns -1 for weekend/unknown */
+  function dayIndex(dayStr) {
+    return DAYS.indexOf(dayStr);
+  }
+
+  /**
+   * Convert a class's times array to a set of busy slot indices.
+   * Each slot = dayIndex * SLOTS_PER_DAY + (halfHour - SLOT_START)
+   */
+  function timesToSlots(timesArr) {
+    const slots = new Set();
+    for (const t of timesArr) {
+      const d = dayIndex(t.day);
+      if (d < 0) continue;
+      const [start, end] = parseTime(t.time);
+      const s = Math.max(start, SLOT_START);
+      const e = Math.min(end,   SLOT_END);
+      for (let h = s; h < e; h++) {
+        const idx = d * SLOTS_PER_DAY + (h - SLOT_START);
+        slots.add(idx);
+      }
+    }
+    return slots;
+  }
+
+  /**
+   * Fetch all classes for a list of course codes from DevSoc.
+   * Returns: Map<courseCode, Map<activity, Array<{section, times[], slots}>>>
+   */
+  async function fetchClassesForCourses(courseCodes) {
+    if (!courseCodes.length) return new Map();
+    const codeList = courseCodes.map(c => `"${c}"`).join(',');
+    const query = `{
+      classes(where: {course: {course_code: {_in: [${codeList}]}}}) {
+        class_id
+        section
+        activity
+        status
+        course { course_code }
+        times { day time weeks }
+      }
+    }`;
+    const res  = await fetch(DEVSOC, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({query})});
+    const json = await res.json();
+    const classes = json.data?.classes || [];
+
+    // Group by course → activity → section
+    // Since same section = same class (linked), we use class_id as the key
+    const result = new Map(); // courseCode → Map<activity → Array<{section, slots}>>
+    for (const cls of classes) {
+      const code     = cls.course.course_code;
+      const activity = cls.activity;
+      const section  = cls.section;
+      const slots    = timesToSlots(cls.times || []);
+      if (!result.has(code)) result.set(code, new Map());
+      const actMap = result.get(code);
+      if (!actMap.has(activity)) actMap.set(activity, []);
+      // Deduplicate by section (same section = linked, already merged via times array)
+      const existing = actMap.get(activity).find(s => s.section === section);
+      if (!existing) {
+        actMap.get(activity).push({section, slots, classId: cls.class_id});
+      } else {
+        // Merge additional times into existing section's slots
+        for (const s of slots) existing.slots.add(s);
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Build all valid timetable combinations for one person.
+   * Returns: Array<{busySlots: Set, assignment: Map<"COURSE:activity" → {section}>}>
+   *
+   * For each course, for each activity type, the person must pick exactly one section.
+   * We compute the cartesian product across all (course × activity) choices.
+   *
+   * To keep it tractable we cap at MAX_COMBOS combinations.
+   */
+  const MAX_COMBOS = 2000;
+
+  function buildPersonCombinations(courseCodes, classData) {
+    // Build list of "choice axes" — each axis is an array of section options
+    const axes = []; // each: {key: "COURSE:activity", options: [{section, slots}]}
+    for (const code of courseCodes) {
+      const actMap = classData.get(code);
+      if (!actMap) continue;
+      for (const [activity, sections] of actMap) {
+        if (sections.length === 0) continue;
+        axes.push({ key: `${code}:${activity}`, options: sections });
+      }
+    }
+    if (axes.length === 0) return [{ busySlots: new Set(), assignment: new Map() }];
+
+    // Cartesian product with early pruning at MAX_COMBOS
+    let combos = [{ busySlots: new Set(), assignment: new Map() }];
+    for (const axis of axes) {
+      const next = [];
+      for (const combo of combos) {
+        for (const opt of axis.options) {
+          if (next.length >= MAX_COMBOS) break;
+          const newSlots = new Set([...combo.busySlots, ...opt.slots]);
+          const newAssign = new Map(combo.assignment);
+          newAssign.set(axis.key, { section: opt.section, classId: opt.classId });
+          next.push({ busySlots: newSlots, assignment: newAssign });
+        }
+        if (next.length >= MAX_COMBOS) break;
+      }
+      combos = next;
+      if (combos.length >= MAX_COMBOS) break;
+    }
+    return combos;
+  }
+
+  /**
+   * MAIN ALGORITHM
+   * Given an array of members (each with {userId, displayName, courseCodes}),
+   * find the combination of section choices across all members that maximises
+   * the total shared free hours (Mon–Fri, 9am–8pm).
+   *
+   * Strategy:
+   * 1. For each member, compute all valid timetable combinations.
+   * 2. Greedily combine: start with member 0, for each subsequent member
+   *    try all their combinations and pick the one that maximises overlap
+   *    with the running "group busy" picture. This is O(M × K) rather than
+   *    O(K^M) for large groups.
+   * 3. For small groups (≤3 members, ≤MAX_COMBOS total) do exact search.
+   */
+  async function runOptimisation(members, classData) {
+    const TOTAL_SLOTS = SLOTS_PER_DAY * DAYS.length; // 110
+
+    // Build combinations per member
+    const memberCombos = members.map(m => ({
+      ...m,
+      combos: buildPersonCombinations(m.courseCodes, classData),
+    }));
+
+    // Exact search for small cases, greedy for larger
+    const totalProduct = memberCombos.reduce((acc, m) => acc * m.combos.length, 1);
+
+    let bestScore       = -1;
+    let bestAssignments = null; // Array<Map<key, {section}>> one per member
+    let bestGroupBusy   = null;
+
+    if (totalProduct <= 10000) {
+      // Exact: try all combinations
+      function search(idx, currentGroupBusy, currentAssignments) {
+        if (idx === memberCombos.length) {
+          // Score = free slots shared by everyone = TOTAL_SLOTS - |groupBusy|
+          const score = TOTAL_SLOTS - currentGroupBusy.size;
+          if (score > bestScore) {
+            bestScore       = score;
+            bestAssignments = currentAssignments.map(a => new Map(a));
+            bestGroupBusy   = new Set(currentGroupBusy);
+          }
+          return;
+        }
+        for (const combo of memberCombos[idx].combos) {
+          const merged = new Set([...currentGroupBusy, ...combo.busySlots]);
+          currentAssignments.push(combo.assignment);
+          search(idx + 1, merged, currentAssignments);
+          currentAssignments.pop();
+        }
+      }
+      search(0, new Set(), []);
+    } else {
+      // Greedy: fix each member's best choice sequentially
+      let groupBusy   = new Set();
+      bestAssignments = [];
+      for (const mc of memberCombos) {
+        let bestPersonScore = -1;
+        let bestCombo       = mc.combos[0];
+        for (const combo of mc.combos) {
+          const merged = new Set([...groupBusy, ...combo.busySlots]);
+          const score  = TOTAL_SLOTS - merged.size;
+          if (score > bestPersonScore) { bestPersonScore = score; bestCombo = combo; }
+        }
+        for (const s of bestCombo.busySlots) groupBusy.add(s);
+        bestAssignments.push(bestCombo.assignment);
+        bestGroupBusy = new Set(groupBusy);
+      }
+      bestScore = TOTAL_SLOTS - bestGroupBusy.size;
+    }
+
+    // Derive per-member busy slots for timetable rendering
+    const memberBusySlots = memberCombos.map((mc, i) => {
+      const combo = mc.combos.find(c => {
+        const a = bestAssignments[i];
+        for (const [k, v] of a) {
+          const opt = c.assignment.get(k);
+          if (!opt || opt.section !== v.section) return false;
+        }
+        return true;
+      }) || mc.combos[0];
+      return combo.busySlots;
+    });
+
+    return {
+      bestScore,
+      bestAssignments,
+      bestGroupBusy: bestGroupBusy || new Set(),
+      members: memberCombos.map((mc, i) => ({
+        userId:      mc.userId,
+        displayName: mc.displayName,
+        courseCodes: mc.courseCodes,
+        assignment:  bestAssignments ? bestAssignments[i] : new Map(),
+        busySlots:   memberBusySlots[i],
+      })),
+    };
+  }
+
+  /** Extract contiguous free windows ≥ 1 hour (2 slots) from the group busy set */
+  function extractFreeWindows(groupBusySlots) {
+    const windows = [];
+    for (let d = 0; d < DAYS.length; d++) {
+      let runStart = null;
+      for (let s = 0; s <= SLOTS_PER_DAY; s++) {
+        const slotIdx = d * SLOTS_PER_DAY + s;
+        const isFree  = s < SLOTS_PER_DAY && !groupBusySlots.has(slotIdx);
+        if (isFree && runStart === null) runStart = s;
+        if (!isFree && runStart !== null) {
+          const duration = s - runStart;
+          if (duration >= 2) { // ≥ 1 hour
+            const startH = SLOT_START + runStart;
+            const endH   = SLOT_START + s;
+            windows.push({
+              day: DAYS[d],
+              startH, endH,
+              durationMins: duration * 30,
+              label: `${DAYS[d]} ${fmtTime(startH)} – ${fmtTime(endH)}`,
+            });
+          }
+          runStart = null;
+        }
+      }
+    }
+    return windows;
+  }
+
+  function fmtTime(halfHours) {
+    const h = Math.floor(halfHours / 2);
+    const m = halfHours % 2 === 0 ? '00' : '30';
+    const ampm = h >= 12 ? 'pm' : 'am';
+    const h12 = h > 12 ? h - 12 : h === 0 ? 12 : h;
+    return `${h12}:${m}${ampm}`;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     ALGORITHM — UI runner
+  ═══════════════════════════════════════════════════════════ */
+  function resetSyncBody() {
+    const body = document.getElementById('sync-body');
+    body.innerHTML = `<div class="sync-locked">
+      <div class="sync-locked-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="4" y="7" width="8" height="7" rx="2" stroke="var(--mid)" stroke-width="1.3"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" stroke="var(--mid)" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+      <p id="sync-locked-msg">At least 2 members need to add their courses before finding windows.</p>
+    </div>`;
+  }
+
+  function setAlgoProgress(pct, statusMsg) {
+    const body = document.getElementById('sync-body');
+    body.innerHTML = `<div class="algo-progress">
+      <div class="algo-progress-label"><span class="spinner-dark"></span> Optimising timetables…</div>
+      <div class="algo-bar-track"><div class="algo-bar-fill" style="width:${pct}%"></div></div>
+      <div class="algo-status">${esc(statusMsg)}</div>
+    </div>`;
+  }
+
+  async function runAlgorithm() {
+    if (algoRunning) return;
+    if (!groupCoursesData || !groupCoursesData.is_ready) return;
+    algoRunning = true;
+    const btn = document.getElementById('find-windows-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Finding…';
+
+    try {
+      setAlgoProgress(10, 'Refreshing group courses…');
+      const freshData = await api(`/groups/${currentGroupId}/courses`);
+      groupCoursesData = freshData;
+      renderReadiness(freshData);
+
+      const activeMems = freshData.members.filter(m => m.course_codes.length > 0);
+      if (activeMems.length < 2) { showToast('Need at least 2 members with courses'); return; }
+
+      setAlgoProgress(25, `Fetching timetable data for ${activeMems.length} members…`);
+      const allCodes = [...new Set(activeMems.flatMap(m => m.course_codes))];
+      const classData = await fetchClassesForCourses(allCodes);
+
+      setAlgoProgress(55, 'Building timetable combinations…');
+      const membersForAlgo = activeMems.map(m => ({
+        userId:      m.user_id,
+        displayName: m.display_name,
+        courseCodes: m.course_codes,
+      }));
+
+      setAlgoProgress(70, 'Running optimisation…');
+      // Yield to browser to update UI
+      await new Promise(r => setTimeout(r, 20));
+      const result = await runOptimisation(membersForAlgo, classData);
+
+      setAlgoProgress(95, 'Computing free windows…');
+      const windows = extractFreeWindows(result.bestGroupBusy);
+      result.windows = windows;
+      lastAlgoResult = result;
+
+      setAlgoProgress(100, 'Done!');
+      await new Promise(r => setTimeout(r, 300));
+      renderAlgoResult(result);
+
+    } catch(e) {
+      console.error('Algorithm error:', e);
+      document.getElementById('sync-body').innerHTML = `<div class="error-msg">Could not complete optimisation: ${esc(e.message)}</div>`;
+      showToast('Optimisation failed: ' + e.message);
+    } finally {
+      algoRunning = false;
+      btn.disabled = false;
+      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="1.4"/><path d="M5 7l2 2 2-3" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Find windows`;
+    }
+  }
+
+  function renderAlgoResult(result) {
+    const { bestScore, members, windows } = result;
+    const totalHours = (bestScore * 30 / 60).toFixed(1);
+
+    let html = '';
+
+    // Score badge
+    html += `<div class="score-badge">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 4h4.2l-3.4 2.5 1.3 4L7 9l-3.6 2.5 1.3-4L1.3 5H5.5z" fill="white"/></svg>
+      ${totalHours}h shared free time per week
+    </div>`;
+
+    // Timetable grid
+    html += `<div class="timetable-wrap">${renderTimetable(result)}</div>`;
+    html += `<div class="timetable-legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:#4A7C59;opacity:.85;border:none"></div>Everyone free</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:var(--green-bg);border-color:var(--green-bd)"></div>Some free</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#FEF0EC;border-color:#F5C6B5"></div>Someone busy</div>
+    </div>`;
+
+    // Free windows
+    html += `<div class="section-divider"></div>`;
+    html += `<div style="font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin-bottom:.5rem;">Free windows ≥ 1 hour</div>`;
+    if (windows.length === 0) {
+      html += `<div class="window-empty">No shared free windows found. Try adjusting your course selections.</div>`;
+    } else {
+      html += `<div class="windows-list">` + windows.map((w, i) => `
+        <div class="window-item" style="animation-delay:${i*.05}s">
+          <div class="window-dot"></div>
+          <div class="window-info">
+            <div class="window-time">${esc(w.label)}</div>
+            <div class="window-dur">${w.durationMins >= 60 ? (w.durationMins/60).toFixed(1)+'h' : w.durationMins+'min'}</div>
+          </div>
+        </div>`).join('') + `</div>`;
+    }
+
+    // Recommended assignments
+    html += `<div class="section-divider"></div>`;
+    html += `<div style="font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin-bottom:.5rem;">Recommended class selections</div>`;
+    html += `<div class="assignment-list">`;
+    for (const mem of members) {
+      if (!mem.assignment || mem.assignment.size === 0) continue;
+      html += `<div class="assignment-person">
+        <div class="assignment-name">${esc(mem.displayName)}</div>
+        <div class="assignment-courses">`;
+      for (const [key, val] of mem.assignment) {
+        const [course, activity] = key.split(':');
+        const isLec = activity.toLowerCase().includes('lec');
+        html += `<span class="assignment-chip ${isLec?'lec':'tut'}" title="${esc(activity)}">${esc(course)} ${esc(val.section)}</span>`;
+      }
+      html += `</div></div>`;
+    }
+    html += `</div>`;
+
+    document.getElementById('sync-body').innerHTML = html;
+  }
+
+  /** Build the timetable HTML table */
+  function renderTimetable(result) {
+    const { members, bestGroupBusy } = result;
+    // Per-slot: how many members are busy?
+    const busyCounts = new Array(SLOTS_PER_DAY * DAYS.length).fill(0);
+    for (const mem of members) {
+      for (const s of mem.busySlots) busyCounts[s] = (busyCounts[s]||0) + 1;
+    }
+    const N = members.length;
+
+    let rows = `<table class="timetable"><thead><tr><th></th>`;
+    for (const d of DAYS) rows += `<th>${d}</th>`;
+    rows += `</tr></thead><tbody>`;
+
+    for (let s = 0; s < SLOTS_PER_DAY; s++) {
+      const halfHour = SLOT_START + s;
+      const showLabel = halfHour % 2 === 0; // only on the hour
+      rows += `<tr><td class="time-label">${showLabel ? fmtTime(halfHour) : ''}</td>`;
+      for (let d = 0; d < DAYS.length; d++) {
+        const idx = d * SLOTS_PER_DAY + s;
+        const cnt = busyCounts[idx] || 0;
+        let cls = '';
+        if (cnt === 0) cls = 'slot-free-overlap'; // all free
+        else if (cnt === N) cls = 'slot-busy';      // all busy
+        else cls = 'slot-partial';                  // some free
+        rows += `<td class="${cls}"></td>`;
+      }
+      rows += `</tr>`;
+    }
+    rows += `</tbody></table>`;
+    return rows;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     MODALS — leave / delete / create / join
+  ═══════════════════════════════════════════════════════════ */
   function openLeaveModal() {
-    document.getElementById('modal-backdrop').style.display = 'flex';
-    document.getElementById('modal-leave').style.display   = 'block';
-    document.getElementById('modal-create').style.display  = 'none';
-    document.getElementById('modal-join').style.display    = 'none';
-    document.getElementById('modal-delete').style.display  = 'none';
+    document.getElementById('modal-backdrop').style.display='flex';
+    ['modal-create','modal-join','modal-delete'].forEach(id=>document.getElementById(id).style.display='none');
+    document.getElementById('modal-leave').style.display='block';
   }
-
   async function doLeave() {
-    const btn = document.getElementById('leave-confirm-btn');
-    btn.disabled = true;
-    btn.textContent = 'Leaving…';
-    try {
-      await api(`/groups/${currentGroupId}/leave`, { method: 'DELETE' });
-      closeAllModals();
-      showToast('You left the group');
-      showDashboard();
-    } catch (e) {
-      showToast(e.message);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Leave group';
-    }
+    const btn=document.getElementById('leave-confirm-btn');
+    btn.disabled=true; btn.textContent='Leaving…';
+    try { await api(`/groups/${currentGroupId}/leave`,{method:'DELETE'}); closeAllModals(); showToast('You left the group'); showDashboard(); }
+    catch(e){ showToast(e.message); }
+    finally { btn.disabled=false; btn.textContent='Leave group'; }
   }
-
-  // ── Delete Group ──────────────────────────────────
   function openDeleteModal() {
-    document.getElementById('modal-backdrop').style.display = 'flex';
-    document.getElementById('modal-delete').style.display  = 'block';
-    document.getElementById('modal-create').style.display  = 'none';
-    document.getElementById('modal-join').style.display    = 'none';
-    document.getElementById('modal-leave').style.display   = 'none';
+    document.getElementById('modal-backdrop').style.display='flex';
+    ['modal-create','modal-join','modal-leave'].forEach(id=>document.getElementById(id).style.display='none');
+    document.getElementById('modal-delete').style.display='block';
   }
-
   async function doDeleteGroup() {
-    const btn = document.getElementById('delete-confirm-btn');
-    btn.disabled = true;
-    btn.textContent = 'Deleting…';
-    try {
-      await api(`/groups/${currentGroupId}`, { method: 'DELETE' });
-      closeAllModals();
-      showToast('Group deleted');
-      showDashboard();
-    } catch (e) {
-      showToast(e.message);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Delete group';
-    }
+    const btn=document.getElementById('delete-confirm-btn');
+    btn.disabled=true; btn.textContent='Deleting…';
+    try { await api(`/groups/${currentGroupId}`,{method:'DELETE'}); closeAllModals(); showToast('Group deleted'); showDashboard(); }
+    catch(e){ showToast(e.message); }
+    finally { btn.disabled=false; btn.textContent='Delete group'; }
   }
-
-  // ── Create modal ──────────────────────────────────
   function openCreateModal() {
-    document.getElementById('modal-backdrop').style.display = 'flex';
-    document.getElementById('modal-create').style.display  = 'block';
-    document.getElementById('modal-join').style.display    = 'none';
-    document.getElementById('modal-leave').style.display   = 'none';
-    setTimeout(() => document.getElementById('create-name').focus(), 50);
+    document.getElementById('modal-backdrop').style.display='flex';
+    ['modal-join','modal-leave','modal-delete'].forEach(id=>document.getElementById(id).style.display='none');
+    document.getElementById('modal-create').style.display='block';
+    setTimeout(()=>document.getElementById('create-name').focus(),50);
   }
-
   async function doCreate() {
-    const name = document.getElementById('create-name').value.trim();
+    const name=document.getElementById('create-name').value.trim();
     if (!name) return;
-    const btn = document.getElementById('create-btn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>';
-    try {
-      await api('/groups', { method: 'POST', body: JSON.stringify({ name }) });
-      closeAllModals();
-      document.getElementById('create-name').value = '';
-      showToast('Group created!');
-      loadGroups();
-    } catch (e) {
-      showToast(e.message);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Create';
-    }
+    const btn=document.getElementById('create-btn');
+    btn.disabled=true; btn.innerHTML='<span class="spinner"></span>';
+    try { await api('/groups',{method:'POST',body:JSON.stringify({name})}); closeAllModals(); document.getElementById('create-name').value=''; showToast('Group created!'); loadGroups(); }
+    catch(e){ showToast(e.message); }
+    finally { btn.disabled=false; btn.textContent='Create'; }
   }
-
-  // ── Join modal ────────────────────────────────────
   function openJoinModal() {
-    document.getElementById('modal-backdrop').style.display = 'flex';
-    document.getElementById('modal-join').style.display    = 'block';
-    document.getElementById('modal-create').style.display  = 'none';
-    document.getElementById('modal-leave').style.display   = 'none';
-    document.getElementById('join-error').style.display    = 'none';
-    setTimeout(() => document.getElementById('join-code').focus(), 50);
+    document.getElementById('modal-backdrop').style.display='flex';
+    ['modal-create','modal-leave','modal-delete'].forEach(id=>document.getElementById(id).style.display='none');
+    document.getElementById('modal-join').style.display='block';
+    document.getElementById('join-error').style.display='none';
+    setTimeout(()=>document.getElementById('join-code').focus(),50);
   }
-
   async function doJoin() {
-    const code = document.getElementById('join-code').value.trim().toUpperCase();
+    const code=document.getElementById('join-code').value.trim().toUpperCase();
     if (!code) return;
-    const btn = document.getElementById('join-btn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>';
+    const btn=document.getElementById('join-btn');
+    btn.disabled=true; btn.innerHTML='<span class="spinner"></span>';
     try {
-      const g = await api('/groups/join', { method: 'POST', body: JSON.stringify({ invite_code: code }) });
-      closeAllModals();
-      document.getElementById('join-code').value = '';
-      showToast(`Joined "${g.name}"!`);
-      loadGroups();
-    } catch (e) {
-      const el = document.getElementById('join-error');
-      el.textContent   = e.message;
-      el.style.display = 'block';
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Join';
-    }
+      const g=await api('/groups/join',{method:'POST',body:JSON.stringify({invite_code:code})});
+      closeAllModals(); document.getElementById('join-code').value=''; showToast(`Joined "${g.name}"!`); loadGroups();
+    } catch(e){ const el=document.getElementById('join-error'); el.textContent=e.message; el.style.display='block'; }
+    finally { btn.disabled=false; btn.textContent='Join'; }
   }
 
-  // ── Utilities ─────────────────────────────────────
-  function closeModal(e) {
-    if (e.target === document.getElementById('modal-backdrop')) closeAllModals();
+  /* ═══════════════════════════════════════════════════════════
+     UTILITIES
+  ═══════════════════════════════════════════════════════════ */
+  function closeModal(e){ if(e.target===document.getElementById('modal-backdrop')) closeAllModals(); }
+  function closeAllModals(){
+    document.getElementById('modal-backdrop').style.display='none';
+    ['modal-create','modal-join','modal-leave','modal-delete'].forEach(id=>document.getElementById(id).style.display='none');
   }
-
-  function closeAllModals() {
-    document.getElementById('modal-backdrop').style.display = 'none';
-    ['modal-create', 'modal-join', 'modal-leave', 'modal-delete'].forEach(id =>
-      document.getElementById(id).style.display = 'none');
-  }
-
-  function copyInviteCode() { copyCode(document.getElementById('detail-code').textContent); }
-
-  function copyCode(code) {
-    navigator.clipboard.writeText(code).then(() => showToast('Invite code copied!'));
-  }
-
-  function showError(id, msg) {
-    const el = document.getElementById(id);
-    el.textContent   = msg;
-    el.style.display = 'block';
-  }
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
-  }
-
-  function esc(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
+  function copyInviteCode(){ copyCode(document.getElementById('detail-code').textContent); }
+  function copyCode(code){ navigator.clipboard.writeText(code).then(()=>showToast('Invite code copied!')); }
+  function showError(id,msg){ const el=document.getElementById(id); el.textContent=msg; el.style.display='block'; }
+  function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+  function esc(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 </script>
 </body>
 </html>
