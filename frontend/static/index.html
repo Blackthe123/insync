@@ -759,12 +759,12 @@
     loadGroups();
   }
 
-  function startChatPoll()   { chatPollInterval=setInterval(loadMessages,3000); }
+  function startChatPoll()   { chatPollInterval=setInterval(loadMessages,500); }
   function startCoursePoll() { 
     coursePollInterval=setInterval(async () => {
       await loadGroupCourses();
       await fetchEventVotes(); // poll votes alongside courses
-    }, 10000); 
+    }, 500); 
   }
   function stopPolling() {
     if (chatPollInterval)   { clearInterval(chatPollInterval);   chatPollInterval=null; }
